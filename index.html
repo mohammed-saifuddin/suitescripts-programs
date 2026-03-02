@@ -1,0 +1,128 @@
+<html>
+    
+<body>
+
+<h2>What Can JavaScript Do?</h2>
+
+<p id="demo">JavaScript can change HTML content.</p>
+<p id="demo1">change this text</p>
+<p id="demo2">Good evening</p>
+<p id="demo3"></p>
+<p id="demo4"></p>
+<p id="demo5"></p>
+<p id="demo6"></p>
+<p id="demo7"></p>
+<div style="padding:12px;">
+<button type="button" onclick='change()'>Click Me!</button>
+
+<button type="button" onclick='change1()'>change</button>
+<button type="button" onclick="add()">Add</button>
+<button type="button" onclick="show()">alerting</button>
+</div>
+
+</body>
+<script>
+    function celsius(f){
+        return (5/9)*(f-32);
+    }
+    let res=celsius(77);
+    document.getElementById("demo7").innerHTML="conversion of fahrenheit to celsius is :"+res;
+        function change(){
+            document.getElementById("demo").innerHTML="Hello javascript"
+        }
+        function change1(){
+            document.getElementById("demo1").innerHTML="Changing works for this"
+            
+        }
+        function add()
+        {
+            
+            let a=10;
+            let b=20;
+            let c=a+b;
+            if(c>=30){
+               document.write(c);
+               console.log("it is greator or equal");
+            }
+            else{
+                console.log("it is lesser");
+            }
+           
+        }
+        window.alert(5+3)
+       function validateVoter(){
+        x=18;
+        if(x<18)
+       {
+        console.log("not eligible to vote");
+       }
+       else{
+        console.log("Eligible to vote in the election")
+       }
+       }
+       
+       if (new Date().getHours() < 12) {
+  document.getElementById("demo2").innerHTML = "Good morning!";
+}
+else if(new Date().getHours() < 18){
+    document.getElementById("demo2").innerHTML="Good afternoon";
+    console.log(new Date().getMonth())
+    console.log(new Date().getTime())
+    console.log(new Date().getFullYear())
+    console.log(new Date().getDate())
+}
+else{
+    document.getElementById("demo2").innerHTML="Good evening";
+}
+       let age=5;
+       let text="you can not drive!!!"
+       if (age >=18){
+        text="you can drive!!!"
+       } 
+       document.getElementById("demo3").innerHTML=text;
+        let day;
+        let date= new Date().getDay();
+        switch(date){
+            case 0:
+                day="sunday";
+                break;
+            case 1:
+                day="monday";
+                break;
+            case 2:
+                day="tuesday";
+                break;
+            case 3: 
+                day="Wednesday";
+                break;
+            case 4:
+                day="Thursday";
+                break;
+            case 5:
+                day="Friday";
+                break;
+            case 6:
+                day="Saturday";
+                break;
+            
+        }
+       document.getElementById("demo4").innerHTML="Today is " + day;
+
+       let arr=["orange","apple","banana","grapes","mango"];
+       let result="";
+       for(let i=0;i<arr.length;i++){
+           result +=arr[i] +"<br/>";
+       }
+       document.getElementById("demo5").innerHTML=result;
+       let i=0;
+       let tex="";
+       while(i<10){
+          tex += "The number is "+i+"<br/>";
+          i++;
+       }
+       document.getElementById("demo6").innerHTML=tex;
+       function show(){
+        alert("you have clicked the button!!!!!")
+       }
+    </script>
+</html>

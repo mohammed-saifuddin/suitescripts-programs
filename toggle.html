@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Dates</h1>
+<h2>The toString() Method</h2>
+
+<p>Convert a date to a string:</p>
+<p id="demo"></p>
+<div id="box" style="width:200px;height:100px;padding:16px;border:1px solid #000;">
+Move mouse over this box
+</div>
+<script>
+const d = new Date();
+let text = d.toString();
+document.getElementById("demo").innerHTML = text;
+let box=document.getElementById("box");
+box.addEventListener("mouseover",function(){
+box.innerHTML="mouse is over the box"
+})
+box.addEventListener("mouseout",function(){
+    box.innerHTML="mouse is out of the box"
+})
+</script>
+
+</body>
+</html>

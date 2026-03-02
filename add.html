@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            adding two numbers
+        </title>
+    </head>
+    <body>
+        <h1 style="margin:12px;">Mini Calculator</h1>
+        <label>Enter the first number:</label>
+       <input id="a" type="number" style="margin:12px;" required><br/>
+        <label>Enter the second number:</label>
+<input id="b" type="number" style="margin:12px;" required><br/>
+<button onclick="add()" style="margin:12px;">Add</button>
+<button onclick="minus()" style="margin:12px;">Sub</button>
+<button onclick="mul()" style="margin:12px;">Mul</button>
+<button onclick="div()" style="margin:12px;">Divide</button>
+<p id="sum"></p>
+<p id="dem"></p>
+<p id="dem1"></p>
+<p id="demo2"></p>
+<script>
+   
+function add() {
+  let a = Number(document.getElementById("a").value);
+  let b = Number(document.getElementById("b").value);
+  let res=a+b;
+  document.getElementById("sum").innerHTML ="Addtion of two number is :" + res;
+  document.getElementById("sum").style.color="purple"
+}
+function minus(){
+    let a=Number(document.getElementById("a").value);
+    let b=Number(document.getElementById("b").value);
+    let res=a-b;
+    document.getElementById("sum").innerHTML="Substraction of two number is :"+res;
+    document.getElementById("sum").style.color="blue"
+}
+function mul(){
+    let a=Number(document.getElementById("a").value);
+    let b=Number(document.getElementById("b").value);
+    let res=a*b;
+    document.getElementById("sum").innerHTML="Multiplication of two number is :"+res;
+    document.getElementById("sum").style.color="green"
+}
+function div(){
+    let a=Number(document.getElementById("a").value);
+    let b=Number(document.getElementById("b").value);
+    let res=a/b;
+    document.getElementById("sum").innerHTML="Division of two number is :"+res;
+    document.getElementById("sum").style.color="red"
+}
+class Car{
+    constructor(name,year){
+        this.year=year;
+        this.name=name;
+    }
+    age(){
+        let date=new Date();
+        return date.getFullYear() - this.year;
+    }
+    present(){
+        return "I have a "+this.name
+    }
+}
+class Model extends Car{
+    constructor(model,name){
+        super(name);
+        this.model=model;
+    }
+    show(){
+        return this.present() +", it is a  "+this.model;
+    }
+}
+let c=new Model("innova","toyata");
+let c1=new Car("i10",2009)
+document.getElementById("dem").innerHTML=c1.name +", " +c1.year +" and total years of cars ="+c1.age();
+document.getElementById("dem1").innerHTML=c.show();
+</script>
+
+    </body>
+</html>
