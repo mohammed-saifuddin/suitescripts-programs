@@ -18,67 +18,67 @@
                     type: ui.FieldType.INLINEHTML,
                     label: 'Calendar'
                 });
-                function getCustomers(){
+//                 function getCustomers(){
 
-                    var customers = [];
+//                     var customers = [];
 
-                    var customerSearch = search.create({
-                        type: search.Type.CUSTOMER,
-                        filters: [
-                            ['isinactive','is','F']
-                        ],
-                        columns: [
-                            'internalid',
-                            'altname'
-                        ]
-                    });
+//                     var customerSearch = search.create({
+//                         type: search.Type.CUSTOMER,
+//                         filters: [
+//                             ['isinactive','is','F']
+//                         ],
+//                         columns: [
+//                             'internalid',
+//                             'altname'
+//                         ]
+//                     });
 
-                    customerSearch.run().each(function(result){
+//                     customerSearch.run().each(function(result){
 
-                        customers.push({
-                            id: result.getValue('internalid'),
-                            name: result.getValue('altname')
-                        });
+//                         customers.push({
+//                             id: result.getValue('internalid'),
+//                             name: result.getValue('altname')
+//                         });
 
-                        return true;
-                    });
+//                         return true;
+//                     });
 
-                    return customers;
-                }
-                var customerData = getCustomers();
+//                     return customers;
+//                 }
+//                 var customerData = getCustomers();
 
-                var dropdownOptions = '<option value="all">All Customers</option>';
-                var checkboxHtml = '';
+//                 var dropdownOptions = '<option value="all">All Customers</option>';
+//                 var checkboxHtml = '';
 
-                var colors = ["#2A3A76","#8e24aa","#1565c0","#d32f2f","#2e7d32","#ff6d00","#00897b"];
+//                 var colors = ["#2A3A76","#8e24aa","#1565c0","#d32f2f","#2e7d32","#ff6d00","#00897b"];
 
-customerData.forEach(function(cust, index){
+// customerData.forEach(function(cust, index){
 
-    dropdownOptions += 
-        '<option value="'+cust.id+'">'+cust.name+'</option>';
+//     dropdownOptions += 
+//         '<option value="'+cust.id+'">'+cust.name+'</option>';
 
-    var initial = cust.name ? cust.name.charAt(0).toUpperCase() : "?";
-    var color = colors[index % colors.length];
+//     var initial = cust.name ? cust.name.charAt(0).toUpperCase() : "?";
+//     var color = colors[index % colors.length];
 
-    checkboxHtml +=
-        '<div class="customer-item">' +
+//     checkboxHtml +=
+//         '<div class="customer-item">' +
 
-            '<label class="customer-label">' +
+//             '<label class="customer-label">' +
 
-                '<input type="checkbox" class="custCheck" value="'+cust.id+'" checked>' +
+//                 '<input type="checkbox" class="custCheck" value="'+cust.id+'" checked>' +
 
-                '<span class="avatar-circle" style="background:'+color+'">' +
-                    initial +
-                '</span>' +
+//                 '<span class="avatar-circle" style="background:'+color+'">' +
+//                     initial +
+//                 '</span>' +
 
-                '<span class="customer-name">' +
-                    cust.name +
-                '</span>' +
+//                 '<span class="customer-name">' +
+//                     cust.name +
+//                 '</span>' +
 
-            '</label>' +
+//             '</label>' +
 
-        '</div>';
-});
+//         '</div>';
+// });
                 html.defaultValue =
 
                     
@@ -94,7 +94,7 @@ customerData.forEach(function(cust, index){
 
                     '<style>' +
                     '#calendar { height: auto; min-height: 450px; position: relative; font-size:13px; padding:10px; }'+
-
+                     
                     '.fc-timegrid-slot { height:30px !important; }' +
                     '.fc-timegrid-slot-lane { border-bottom: 1px solid rgba(230, 19, 19, 0.7); }' +
                                 '.completed-event {' +
@@ -123,7 +123,46 @@ customerData.forEach(function(cust, index){
                         '100% { box-shadow:0 0 0 0 rgba(0,200,83,0); }' +
                         '}' +
 
+'.fc-hover-plus,' +
+'.fc-hover-minus {' +
+'   width:22px !important;' +
+'   height:22px !important;' +
+'   border-radius:50% !important;' +
+'   display:flex;'+
+'   align-items:center !important;' +
+'   justify-content:center !important;' +
+'   font-size:12px !important;' +
+'   font-weight:600 !important;' +
+'   cursor:pointer !important;' +
+'   transition:all 0.18s ease-in-out !important;' +
+'   box-shadow:0 4px 10px rgba(0,0,0,0.18) !important;' +
+'}'+
 
+'.fc-hover-plus {' +
+'   background:#e8f5e9 !important;' +
+'   border:1px solid #2e7d32 !important;' +
+'}'+
+
+'.fc-hover-plus i {' +
+'   color:#2e7d32 !important;' +
+'}'+
+
+'.fc-hover-minus {' +
+'   background:#ffebee !important;' +
+'   border:1px solid #d32f2f !important;' +
+'}'+
+'.fc-hover-plus {'+
+  ' display:none;'+
+'}'+
+'.fc-hover-minus i {' +
+'   color:#d32f2f !important;' +
+'}'+
+
+'.fc-hover-plus:hover,' +
+'.fc-hover-minus:hover {' +
+'   transform:scale(1.15);' +
+'   box-shadow:0 6px 16px rgba(0,0,0,0.25) !important;' +
+'}'+
                     '.fc-timegrid-col.fc-day-today { background:none !important;position:relative; }' +
                     '.fc-col-header-cell.fc-day-today { position:relative; font-weight:600;height:36px; }' +
                     '.fc-col-header-cell.fc-day-today::after {' +
@@ -251,7 +290,82 @@ customerData.forEach(function(cust, index){
                 '#miniCalendar .selected-week-row .fc-day-today {'+
                     'background-color: #2A3A76 !important;  ' +
                 '}'+
+'.amenity-card {' +
+'   background:#ffffff;' +
+'   padding:18px;' +
+'   border-radius:14px;' +
+'   box-shadow:0 6px 18px rgba(0,0,0,0.08);' +
+'   font-size:13px;' +
+'}' +
 
+'.amenity-header {' +
+'   display:flex;' +
+'   gap:12px;' +
+'   align-items:center;' +
+'   margin-bottom:12px;' +
+'}' +
+
+'.amenity-icon {' +
+'   width:45px;' +
+'   height:45px;' +
+'   background:#2A3A76;' +
+'   color:#fff;' +
+'   border-radius:10px;' +
+'   display:flex;' +
+'   align-items:center;' +
+'   justify-content:center;' +
+'   font-size:18px;' +
+'}' +
+
+'.amenity-title {' +
+'   font-size:15px;' +
+'   font-weight:600;' +
+
+
+'}' +
+
+'.amenity-section-title {' +
+'   font-size:16px;' +
+'   font-weight:700;' +   
+'   color:#2A3A76;' +
+'}' +
+
+'.amenity-subtitle {' +
+'   font-size:12px;' +
+'   color:#777;' +
+'}' +
+
+'.amenity-section {' +
+'   margin-bottom:12px;' +
+'}' +
+
+'.amenity-divider {' +
+'   height:1px;' +
+'   background:#eee;' +
+'   margin:12px 0;' +
+'}' +
+
+'.section-title {' +
+'   font-weight:600;' +
+'   margin-bottom:8px;' +
+'}' +
+
+'.rule-row {' +
+'   display:flex;' +
+'   justify-content:space-between;' +
+'   align-items:center;' +
+'   padding:4px 0;' +
+'}' +
+
+'.rule-row i {' +
+'   margin-right:6px;' +
+'   color:#2A3A76;' +
+'}' +
+
+'.rule-value {' +
+'   font-weight:600;' +
+'   color:#444;' +
+'}'+
 
                 '#miniCalendar .fc-day-today .fc-daygrid-day-number {'+
                     'color: #ffffff !important;'+
@@ -294,7 +408,23 @@ customerData.forEach(function(cust, index){
                         '.fc-col-header-cell {' +
                         '   text-align: left !important;' +
                         '}' +
-                       
+' .fc-timegrid-slot-lane { position:relative; }'+
+
+'.fc-hover-plus i { color:#2A3A76 !important; }'+
+'.fc-timegrid-slot-lane {' +
+'   position:relative;' +
+
+'}' +
+
+
+
+'.fc-timegrid-slot-lane:hover,' +
+'.fc-timegrid-slot-lane:hover * {' +
+'   cursor:pointer;' +
+'}' +
+
+
+     
                             '.event-icon { margin-right:6px; }' +
 
                         '.fc-event {' +
@@ -457,6 +587,10 @@ customerData.forEach(function(cust, index){
                         '   display:flex;' +
                         '   gap:6px;' +
                         '}' +
+
+
+
+
 
                         '.view-tab {' +
                         '   padding:6px 14px;' +
@@ -630,22 +764,24 @@ customerData.forEach(function(cust, index){
    //left side calender
     '<div id="miniCalendar"></div>' +
 
-   //customer drop down
+   //amenities drop down
     '<div style="margin-top:15px;">' +
 
-        '<div style="font-weight:600; margin-bottom:6px;">Customers</div>' +
+         
+'<div id="amenityRulesBox" class="amenity-card">' +
+'   <div class="amenity-section-title">Amenity Rules</div>' +
+'</div>'+
+        
+        // '<select id="customerDropdown" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:6px; margin-bottom:8px;">' +
+        //    dropdownOptions +
+        // '</select>' +
 
         
-        '<select id="customerDropdown" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:6px; margin-bottom:8px;">' +
-           dropdownOptions +
-        '</select>' +
+        // '<div id="customerList" style="max-height:200px; overflow-y:auto;">' +
 
-        
-        '<div id="customerList" style="max-height:200px; overflow-y:auto;">' +
+        //     checkboxHtml +
 
-            checkboxHtml +
-
-        '</div>' +
+        // '</div>' +
 
     '</div>' +
 
@@ -791,6 +927,48 @@ customerData.forEach(function(cust, index){
                     '  "product launch": 20,' +
                     '  meeting: 15' +
                     '};' +
+                    'var amenityRules = {' +
+                   '  all: {'+
+      ' min:"1 Hour",'+
+       'max:"6 Hours",'+
+      ' advance:"2 Days",'+
+      ' breakTime:"30 Min",'+
+       'capacity:"Depends on Amenity",'+
+      ' approval:"Depends on Type"'+
+   '},'+
+'   sport: {' +
+'       min:"1 Hour",' +
+'       max:"3 Hours",' +
+'       advance:"2 Days",' +
+'       breakTime:"30 Min",' +
+'       capacity:"20 People",' +
+'       approval:"No"' +
+'   },' +
+'   social: {' +
+'       min:"2 Hours",' +
+'       max:"5 Hours",' +
+'       advance:"3 Days",' +
+'       breakTime:"45 Min",' +
+'       capacity:"50 People",' +
+'       approval:"Yes"' +
+'   },' +
+'   culture: {' +
+'       min:"3 Hours",' +
+'       max:"8 Hours",' +
+'       advance:"5 Days",' +
+'       breakTime:"1 Hour",' +
+'       capacity:"100 People",' +
+'       approval:"Yes"' +
+'   },' +
+'   corporate: {' +
+'       min:"1 Hour",' +
+'       max:"6 Hours",' +
+'       advance:"4 Days",' +
+'       breakTime:"30 Min",' +
+'       capacity:"40 People",' +
+'       approval:"Yes"' +
+'   }' +
+'};' +
                     '  var categoryCounts = {'+
                         ' sport: { occupied:0, remaining:0 },'+
                         ' culture: { occupied:0, remaining:0 },'+
@@ -812,6 +990,7 @@ customerData.forEach(function(cust, index){
 
                     'event.setProp("display","auto");' +
                     '});' +
+                
                     '}' +
                     ' function applyFilters(){'+
 
@@ -857,7 +1036,7 @@ customerData.forEach(function(cust, index){
         'event.setProp("display","auto");'+
 
   '  });'+
-
+    
   '  updateEventStats();'+
 '}'+
 'if(monthSelector){' +
@@ -897,10 +1076,10 @@ customerData.forEach(function(cust, index){
 
                     'calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {' +
                     'initialView:"timeGridWeek",' +
-                    'views:{' +
-                    '   timeGridWeek:{ buttonText:"Week" },' +
-                    '   dayGridMonth:{ buttonText:"Month" }' +
-                    '},' +
+                    // 'views:{' +
+                    // '   timeGridWeek:{ buttonText:"Week" },' +
+                    // '   dayGridMonth:{ buttonText:"Month" }' +
+                    // '},' +
 
                     'firstDay:1,' +
                     'allDaySlot:false,' +
@@ -1059,6 +1238,26 @@ customerData.forEach(function(cust, index){
 
 ' updateEventStats();' +
 
+'info.el.addEventListener("mouseenter", function(){' +
+'   if(info.el.querySelector(".fc-hover-minus")) return;' +
+
+'   var icon = document.createElement("div");' +
+'   icon.className = "fc-hover-minus";' +
+'   icon.innerHTML = "<i class=\\\'fa-solid fa-minus\\\'></i>";' +
+
+'   info.el.style.position = "relative";' +
+'   icon.style.position = "absolute";' +
+'   icon.style.top = "2px";' +
+'   icon.style.right = "2px";' +
+'   icon.style.zIndex = "30";' +
+
+'   info.el.appendChild(icon);' +
+'});' +
+
+'info.el.addEventListener("mouseleave", function(){' +
+'   var icon = info.el.querySelector(".fc-hover-minus");' +
+'   if(icon) icon.remove();' +
+'});' +
 '},' +
 
                       'eventContent:function(arg){' +
@@ -1138,12 +1337,16 @@ customerData.forEach(function(cust, index){
                         '       amenity = encodeURIComponent(info.event.extendedProps.amenity);' +
                         '   }' +
 
-                        '   openModal("/app/site/hosting/scriptlet.nl?script=customscript1000&deploy=customdeploy1&ifrmcntnr=T"' +
-                        '   + "&date=" + eventDate' +
-                        '   + "&title=" + eventTitle' +
-                        '   + "&amenity=" + amenity);' +
-                        '},'+
-
+                        // '   openModal("/app/site/hosting/scriptlet.nl?script=customscript1000&deploy=customdeploy1&ifrmcntnr=T"' +
+                        // '   + "&date=" + eventDate' +
+                        // '   + "&title=" + eventTitle' +
+                        // '   + "&amenity=" + amenity);' +
+                        // '},'+
+                        '   openModal("/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T"' +
+'       + "&date=" + eventDate' +
+'       + "&title=" + eventTitle' +
+'       + "&amenity=" + amenity);' +
+'},'+
 
 
                            'dateClick:function(info){' +
@@ -1169,7 +1372,7 @@ customerData.forEach(function(cust, index){
                     '   lastClickTime = currentTime;' +
 
                     '   if(dbl){' +
-                    '       openModal("/app/site/hosting/scriptlet.nl?script=customscript1000&deploy=customdeploy1&ifrmcntnr=T&date=" + info.dateStr);' +
+                    '       openModal("/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T&date=" + info.dateStr);' +
                     '   }' +
 
                     '},' +
@@ -1190,7 +1393,44 @@ customerData.forEach(function(cust, index){
 '       calEl.classList.remove("fc-view-fade-active");' +
 '   },300);' +
 '}'+
-                    'calendar.render();' +
+                'calendar.render();' +
+                '   updateAmenityRules("all");' +
+    'var calendarEl = document.getElementById("calendar");' +
+
+'var hoverIcon = document.createElement("div");' +
+'hoverIcon.className = "fc-hover-plus";' +
+'hoverIcon.innerHTML = "<i class=\\\'fa-solid fa-plus\\\'></i>";' +
+'hoverIcon.style.position = "absolute";' +
+'hoverIcon.style.pointerEvents = "none";' +
+'hoverIcon.style.zIndex = "100";' +
+'hoverIcon.style.display = "none";' +
+
+'calendarEl.appendChild(hoverIcon);' +
+
+'calendarEl.addEventListener("mousemove", function(e){' +
+
+'   var slot = e.target.closest(".fc-timegrid-slot-lane");' +
+
+'   if(slot){' +
+
+'       var calRect = calendarEl.getBoundingClientRect();' +
+
+'       hoverIcon.style.left = (e.clientX - calRect.left - 11) + "px";' +
+'       hoverIcon.style.top  = (e.clientY - calRect.top - 11) + "px";' +
+
+'       hoverIcon.style.display = "flex";' +
+
+'   } else {' +
+
+'       hoverIcon.style.display = "none";' +
+
+'   }' +
+
+'});' +
+
+'calendarEl.addEventListener("mouseleave", function(){' +
+'   hoverIcon.style.display = "none";' +
+'});'+
                     'var monthSelector = document.getElementById("monthSelector");' +
 
 'if(monthSelector){' +
@@ -1217,14 +1457,76 @@ customerData.forEach(function(cust, index){
                     'document.getElementById("statusFilter")'+
 '.addEventListener("change", function(){'+
    ' activeStatus = this.value;'+
+   'updateAmenityRules(activeAmenity);'+
     'applyFilters();'+
+    
 '});'+
                     'document.getElementById("amenityFilter")'+
 '.addEventListener("change", function(){'+
     'activeAmenity = this.value;'+
     'activeSubtype = "all";'+
+    'updateAmenityRules(activeAmenity);'+
     'applyFilters();'+
+    
 '});'+
+'function updateAmenityRules(type){' +
+
+'   var box = document.getElementById("amenityRulesBox");' +
+'   if(!box) return;' +
+
+'   var r = amenityRules[type] || amenityRules["all"];' +
+
+'   var labelMap = {' +
+'       all:"All Amenities",' +
+'       sport:"Sport Amenity",' +
+'       social:"Social Amenity",' +
+'       culture:"Cultural Amenity",' +
+'       corporate:"Corporate Amenity"' +
+'   };' +
+
+'   var selectedLabel = labelMap[type] || "All Amenities";' +
+
+'   box.innerHTML =' +
+
+'       "<div class=\\"amenity-section-title\\">Amenity Rules</div>" +' +
+
+'       "<div style=\\"font-size:12px;color:#777;margin-top:4px;margin-bottom:8px;\\">" +' +
+'           "Amenity Type: <strong style=\\"color:#2A3A76;\\">" + selectedLabel + "</strong>" +' +
+'       "</div>" +' +
+
+'       "<div class=\\"amenity-divider\\"></div>" +' +
+
+'       "<div class=\\"rule-row\\">" +' +
+'           "<div><i class=\\"fa-solid fa-hourglass-start\\"></i> Min Duration</div>" +' +
+'           "<div class=\\"rule-value\\">" + r.min + "</div>" +' +
+'       "</div>" +' +
+
+'       "<div class=\\"rule-row\\">" +' +
+'           "<div><i class=\\"fa-solid fa-hourglass-end\\"></i> Max Duration</div>" +' +
+'           "<div class=\\"rule-value\\">" + r.max + "</div>" +' +
+'       "</div>" +' +
+
+'       "<div class=\\"rule-row\\">" +' +
+'           "<div><i class=\\"fa-solid fa-calendar-check\\"></i> Advance Booking</div>" +' +
+'           "<div class=\\"rule-value\\">" + r.advance + "</div>" +' +
+'       "</div>" +' +
+
+'       "<div class=\\"rule-row\\">" +' +
+'           "<div><i class=\\"fa-solid fa-mug-hot\\"></i> Break Time</div>" +' +
+'           "<div class=\\"rule-value\\">" + r.breakTime + "</div>" +' +
+'       "</div>" +' +
+
+'       "<div class=\\"rule-row\\">" +' +
+'           "<div><i class=\\"fa-solid fa-users\\"></i> Capacity</div>" +' +
+'           "<div class=\\"rule-value\\">" + r.capacity + "</div>" +' +
+'       "</div>" +' +
+
+'       "<div class=\\"rule-row\\">" +' +
+'           "<div><i class=\\"fa-solid fa-circle-check\\"></i> Approval Required</div>" +' +
+'           "<div class=\\"rule-value\\">" + r.approval + "</div>" +' +
+'       "</div>";' +
+
+'}' +
 //                     'document.querySelectorAll(".view-tab").forEach(function(btn){' +
 
 // '   btn.addEventListener("click", function(e){' +
@@ -1308,7 +1610,7 @@ customerData.forEach(function(cust, index){
             ' }' +
             '});' +
 
-            'calendar.render();' +  
+            // 'calendar.render();' +  
 
             '}' +
 
@@ -1397,7 +1699,7 @@ customerData.forEach(function(cust, index){
 
                     'activeAmenity = selectedAmenity;' +
                     'activeSubtype = "all";' +
-
+                      'updateAmenityRules(selectedAmenity);'+
                     'document.getElementById("sportSubTabs").style.display="none";' +
                     'document.getElementById("socialSubTabs").style.display="none";' +
                     'document.getElementById("cultureSubTabs").style.display="none";' +

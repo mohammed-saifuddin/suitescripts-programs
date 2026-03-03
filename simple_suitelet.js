@@ -1,92 +1,161 @@
+/**
+ * @NApiVersion 2.x
+ * @NScriptType Suitelet
+ */
+define(['N/ui/serverWidget'], function (ui) {
 
-    /**
-     * @NApiVersion 2.x
-     * @NScriptType Suitelet
-     */
-    define(['N/ui/serverWidget', 'N/format'], function (ui, format) {
+    function onRequest(context) {
 
-        function onRequest(context) {
+        if (context.request.method === 'GET') {
 
-            if (context.request.method === 'GET') {
+            var request = context.request;
 
-                var request = context.request;
+           var mode = request.parameters.mode || 'new';
 
-                var eventDate = request.parameters.date || '';
-                var eventTitle = request.parameters.title || '';
-                var amenity=request.parameters.amenity || '';
-                
-                var form = ui.createForm({
-                    title: 'Booking Form'
-                });
-                var css = form.addField({
-        id: 'custpage_css',
-        type: ui.FieldType.INLINEHTML,
-        label: 'css'
-    });
+var eventDate = request.parameters.date || '';
+var eventTitle = request.parameters.title || '';
+var amenity = request.parameters.amenity || '';
 
-    css.defaultValue =
-        '<style>' +
-        '  body { padding: 20px !important; font-family: Arial, sans-serif; }' +
+var isReschedule = (mode === 'reschedule');
 
-        '  table.uir-table, table.uir-list { width: 100% !important; }' +
+            var form = ui.createForm({
+                title: ' '
+            });
 
-        '  td.uir-field-wrapper { padding: 10px 0 !important; }' +
+            var html = form.addField({
+                id: 'custpage_html',
+                type: ui.FieldType.INLINEHTML,
+                label: ' '
+            });
 
-        '  .uir-field-wrapper label { font-weight: 600; margin-bottom: 4px; display: block; }' +
+            html.defaultValue =
 
-        '  input, textarea, select {' +
-        '    width: 100% !important;' +
-        '    padding: 8px !important;' +
-        '    box-sizing: border-box;' +
-        '  }' +
+                '<style>' +
 
-        '  textarea { min-height: 120px; }' +
-        '</style>';
-                var titleField = form.addField({
-                    id: 'custpage_title',
-                    type: ui.FieldType.TEXT,
-                    label: 'Event Title'
-                });
+                'body { background:#f4f6f9; }' +
 
-                titleField.defaultValue = decodeURIComponent(eventTitle);
+                '.modal-card {' +
+                '   width:520px;' +
+                '   margin:40px auto;' +
+                '   background:#ffffff;' +
+                '   padding:30px;' +
+                '   border-radius:12px;' +
+                '   box-shadow:0 8px 30px rgba(0,0,0,0.08);' +
+                '   font-family:Arial, sans-serif;' +
+                '}' +
 
-                var dateField = form.addField({
-                    id: 'custpage_date',
-                    type: ui.FieldType.DATETIMETZ,
-                    label: 'Event Time'
-                });
+                '.modal-title {' +
+                '   text-align:center;' +
+                '   font-size:22px;' +
+                '   font-weight:600;' +
+                '   color:#2A3A76;' +
+                '   margin-bottom:25px;' +
+                '}' +
 
-            if (eventDate) {
+                '.form-group {' +
+                '   margin-bottom:18px;' +
+                '}' +
 
-        var utcDate = new Date(parseInt(eventDate));
+                '.form-group label {' +
+                '   display:block;' +
+                '   font-weight:600;' +
+                '   margin-bottom:6px;' +
+                '   font-size:13px;' +
+                '}' +
 
-        
-        var utcTime = utcDate.getTime() + (utcDate.getTimezoneOffset() * 60000);
+                '.form-group input {' +
+                '   width:100%;' +
+                '   padding:8px 10px;' +
+                '   border:1px solid #ccc;' +
+                '   border-radius:6px;' +
+                '   font-size:13px;' +
+                '}' +
 
-        
-        var istTime = new Date(utcTime + (330 * 60000));
+                '.form-footer {' +
+                '   display:flex;' +
+                '   justify-content:flex-end;' +
+                '   gap:12px;' +
+                '   margin-top:25px;' +
+                '}' +
 
-        var formattedDate = format.format({
-            value: istTime,
-            type: format.Type.DATETIMETZ
-        });
+                '.btn {' +
+                '   padding:8px 18px;' +
+                '   border-radius:6px;' +
+                '   border:none;' +
+                '   font-weight:600;' +
+                '   cursor:pointer;' +
+                '}' +
 
-        dateField.defaultValue = formattedDate;
+                '.btn-cancel {' +
+                '   background:#e0e0e0;' +
+                '}' +
+
+                '.btn-save {' +
+                '   background:#2A3A76;' +
+                '   color:#fff;' +
+                '}' +
+
+                '</style>' +
+
+                '<div class="modal-card">' +
+
+                '<div class="modal-title">' +
+                (isReschedule ? 'Reschedule Booking' : 'New Booking') +
+                '</div>' +
+
+                '<form method="POST">' +
+
+                '<div class="form-group">' +
+                '<label>Event Title</label>' +
+                '<input type="text" name="event_title" value="' + decodeURIComponent(eventTitle) + '" />' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '<label>Event Time</label>' +
+                '<input type="datetime-local" name="event_time" />' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '<label>Amenity</label>' +
+                '<input type="text" name="amenity" value="' + decodeURIComponent(amenity) + '" />' +
+                '</div>' +
+
+                '<div class="form-footer">' +
+                '<button type="button" class="btn btn-cancel" onclick="goBack()">Cancel</button>' +
+                '<button type="submit" class="btn btn-save">Save Booking</button>' +
+                '</div>' +
+
+                '</form>' +
+
+                '</div>' +
+
+                '<script>' +
+                'function closeModal(){' +
+                '   if(window.parent){' +
+                '       window.parent.document.getElementById("nsModal").style.display="none";' +
+                '       window.parent.document.getElementById("nsFrame").src="";' +
+                '   }' +
+                '}' +
+
+'var selectedDate = "' + eventDate + '";' +
+'var selectedTitle = "' + eventTitle + '";' +
+'var selectedAmenity = "' + amenity + '";' +
+
+'function goBack(){' +
+'   if(window.parent){' +
+'       window.parent.document.getElementById("nsFrame").src =' +
+'           "/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T"' +
+'           + "&date=" + selectedDate' +
+'           + "&title=" + encodeURIComponent(selectedTitle)' +
+'           + "&amenity=" + encodeURIComponent(selectedAmenity);' +
+'   }' +
+'}' +
+
+                '</script>';
+
+            context.response.writePage(form);
+        }
     }
 
-                var evntAmenity=form.addField({
-                    id: 'custpage_amenity',
-                    type: ui.FieldType.TEXT,
-                    label:'amenity'
-                });
-                evntAmenity.defaultValue = decodeURIComponent(amenity);
-                form.addSubmitButton({
-                    label: 'Save'
-                });
-
-                context.response.writePage(form);
-            }
-        }
-
-        return { onRequest: onRequest };
-    });
+    return { onRequest: onRequest };
+});
