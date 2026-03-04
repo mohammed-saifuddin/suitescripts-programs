@@ -89,8 +89,8 @@
                     '</script>' +
                     '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">' +
 
-                    '<link rel="stylesheet" href="https://tstdrv2702437.app.netsuite.com/core/media/media.nl?id=5913&c=TSTDRV2702437&h=3TIZ6Yj_3UtwLE-N-Bq56ED02fHIdxLKB66j_I5-aJ_e85nv">' +
-                    '<script src="https://tstdrv2702437.app.netsuite.com/core/media/media.nl?id=5912&c=TSTDRV2702437&h=zRdW1Ost_LWRRrUMunslPWN3EdcXYJ24qDFEm2l29zHkJ38_"></script>' +
+                   '<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">' +
+'<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>' +
 
                     '<style>' +
                     '#calendar { height: auto; min-height: 450px; position: relative; font-size:13px; padding:10px; }'+
@@ -123,46 +123,46 @@
                         '100% { box-shadow:0 0 0 0 rgba(0,200,83,0); }' +
                         '}' +
 
-'.fc-hover-plus,' +
-'.fc-hover-minus {' +
-'   width:22px !important;' +
-'   height:22px !important;' +
-'   border-radius:50% !important;' +
-'   display:flex;'+
-'   align-items:center !important;' +
-'   justify-content:center !important;' +
-'   font-size:12px !important;' +
-'   font-weight:600 !important;' +
-'   cursor:pointer !important;' +
-'   transition:all 0.18s ease-in-out !important;' +
-'   box-shadow:0 4px 10px rgba(0,0,0,0.18) !important;' +
-'}'+
+                    '.fc-hover-plus,' +
+                    '.fc-hover-minus {' +
+                    '   width:22px !important;' +
+                    '   height:22px !important;' +
+                    '   border-radius:50% !important;' +
+                    '   display:flex;'+
+                    '   align-items:center !important;' +
+                    '   justify-content:center !important;' +
+                    '   font-size:12px !important;' +
+                    '   font-weight:600 !important;' +
+                    '   cursor:pointer !important;' +
+                    '   transition:all 0.18s ease-in-out !important;' +
+                    '   box-shadow:0 4px 10px rgba(0,0,0,0.18) !important;' +
+                    '}'+
 
-'.fc-hover-plus {' +
-'   background:#e8f5e9 !important;' +
-'   border:1px solid #2e7d32 !important;' +
-'}'+
+                    '.fc-hover-plus {' +
+                    '   background:#e8f5e9 !important;' +
+                    '   border:1px solid #2e7d32 !important;' +
+                    '}'+
 
-'.fc-hover-plus i {' +
-'   color:#2e7d32 !important;' +
-'}'+
+                    '.fc-hover-plus i {' +
+                    '   color:#2e7d32 !important;' +
+                    '}'+
 
-'.fc-hover-minus {' +
-'   background:#ffebee !important;' +
-'   border:1px solid #d32f2f !important;' +
-'}'+
-'.fc-hover-plus {'+
-  ' display:none;'+
-'}'+
-'.fc-hover-minus i {' +
-'   color:#d32f2f !important;' +
-'}'+
+                    '.fc-hover-minus {' +
+                    '   background:#ffebee !important;' +
+                    '   border:1px solid #d32f2f !important;' +
+                    '}'+
+                    '.fc-hover-plus {'+
+                    ' display:none;'+
+                    '}'+
+                    '.fc-hover-minus i {' +
+                    '   color:#d32f2f !important;' +
+                    '}'+
 
-'.fc-hover-plus:hover,' +
-'.fc-hover-minus:hover {' +
-'   transform:scale(1.15);' +
-'   box-shadow:0 6px 16px rgba(0,0,0,0.25) !important;' +
-'}'+
+                    '.fc-hover-plus:hover,' +
+                    '.fc-hover-minus:hover {' +
+                    '   transform:scale(1.15);' +
+                    '   box-shadow:0 6px 16px rgba(0,0,0,0.25) !important;' +
+                    '}'+
                     '.fc-timegrid-col.fc-day-today { background:none !important;position:relative; }' +
                     '.fc-col-header-cell.fc-day-today { position:relative; font-weight:600;height:36px; }' +
                     '.fc-col-header-cell.fc-day-today::after {' +
@@ -290,82 +290,82 @@
                 '#miniCalendar .selected-week-row .fc-day-today {'+
                     'background-color: #2A3A76 !important;  ' +
                 '}'+
-'.amenity-card {' +
-'   background:#ffffff;' +
-'   padding:18px;' +
-'   border-radius:14px;' +
-'   box-shadow:0 6px 18px rgba(0,0,0,0.08);' +
-'   font-size:13px;' +
-'}' +
+                '.amenity-card {' +
+                '   background:#ffffff;' +
+                '   padding:18px;' +
+                '   border-radius:14px;' +
+                '   box-shadow:0 6px 18px rgba(0,0,0,0.08);' +
+                '   font-size:13px;' +
+                '}' +
 
-'.amenity-header {' +
-'   display:flex;' +
-'   gap:12px;' +
-'   align-items:center;' +
-'   margin-bottom:12px;' +
-'}' +
+                '.amenity-header {' +
+                '   display:flex;' +
+                '   gap:12px;' +
+                '   align-items:center;' +
+                '   margin-bottom:12px;' +
+                '}' +
 
-'.amenity-icon {' +
-'   width:45px;' +
-'   height:45px;' +
-'   background:#2A3A76;' +
-'   color:#fff;' +
-'   border-radius:10px;' +
-'   display:flex;' +
-'   align-items:center;' +
-'   justify-content:center;' +
-'   font-size:18px;' +
-'}' +
+                '.amenity-icon {' +
+                '   width:45px;' +
+                '   height:45px;' +
+                '   background:#2A3A76;' +
+                '   color:#fff;' +
+                '   border-radius:10px;' +
+                '   display:flex;' +
+                '   align-items:center;' +
+                '   justify-content:center;' +
+                '   font-size:18px;' +
+                '}' +
 
-'.amenity-title {' +
-'   font-size:15px;' +
-'   font-weight:600;' +
+                '.amenity-title {' +
+                '   font-size:15px;' +
+                '   font-weight:600;' +
 
 
-'}' +
+                '}' +
 
-'.amenity-section-title {' +
-'   font-size:16px;' +
-'   font-weight:700;' +   
-'   color:#2A3A76;' +
-'}' +
+                '.amenity-section-title {' +
+                '   font-size:16px;' +
+                '   font-weight:700;' +   
+                '   color:#2A3A76;' +
+                '}' +
 
-'.amenity-subtitle {' +
-'   font-size:12px;' +
-'   color:#777;' +
-'}' +
+                '.amenity-subtitle {' +
+                '   font-size:12px;' +
+                '   color:#777;' +
+                '}' +
 
-'.amenity-section {' +
-'   margin-bottom:12px;' +
-'}' +
+                '.amenity-section {' +
+                '   margin-bottom:12px;' +
+                '}' +
 
-'.amenity-divider {' +
-'   height:1px;' +
-'   background:#eee;' +
-'   margin:12px 0;' +
-'}' +
+                '.amenity-divider {' +
+                '   height:1px;' +
+                '   background:#eee;' +
+                '   margin:12px 0;' +
+                '}' +
 
-'.section-title {' +
-'   font-weight:600;' +
-'   margin-bottom:8px;' +
-'}' +
+                '.section-title {' +
+                '   font-weight:600;' +
+                '   margin-bottom:8px;' +
+                '}' +
 
-'.rule-row {' +
-'   display:flex;' +
-'   justify-content:space-between;' +
-'   align-items:center;' +
-'   padding:4px 0;' +
-'}' +
+                '.rule-row {' +
+                '   display:flex;' +
+                '   justify-content:space-between;' +
+                '   align-items:center;' +
+                '   padding:4px 0;' +
+                '}' +
 
-'.rule-row i {' +
-'   margin-right:6px;' +
-'   color:#2A3A76;' +
-'}' +
+                '.rule-row i {' +
+                '   margin-right:6px;' +
+                '   color:#2A3A76;' +
+                '}' +
 
-'.rule-value {' +
-'   font-weight:600;' +
-'   color:#444;' +
-'}'+
+                '.rule-value {' +
+                '   font-weight:600;' +
+                '   color:#444;' +
+                '}'+
 
                 '#miniCalendar .fc-day-today .fc-daygrid-day-number {'+
                     'color: #ffffff !important;'+
@@ -873,22 +873,22 @@
                 '<div id="calendar"></div>' +
                 '<div id="calendarLegend" style="margin-top:15px; padding:10px; border-top:1px solid #ddd; display:flex; gap:20px; justify-content:center;align-items:center; font-size:13px;">' +
 
-'   <div style="display:flex; align-items:center; gap:6px;">' +
-'       <span style="width:14px;height:14px;background:#d32f2f;border-radius:3px;display:inline-block;"></span>' +
-'       <span>Past Event</span>' +
-'   </div>' +
+                    '   <div style="display:flex; align-items:center; gap:6px;">' +
+                    '       <span style="width:14px;height:14px;background:#d32f2f;border-radius:3px;display:inline-block;"></span>' +
+                    '       <span>Past Event</span>' +
+                    '   </div>' +
 
-'   <div style="display:flex; align-items:center; gap:6px;">' +
-'       <span style="width:14px;height:14px;background:#2e7d32;border-radius:3px;display:inline-block;"></span>' +
-'       <span>Ongoing Event</span>' +
-'   </div>' +
+                    '   <div style="display:flex; align-items:center; gap:6px;">' +
+                    '       <span style="width:14px;height:14px;background:#2e7d32;border-radius:3px;display:inline-block;"></span>' +
+                    '       <span>Ongoing Event</span>' +
+                    '   </div>' +
 
-'   <div style="display:flex; align-items:center; gap:6px;">' +
-'       <span style="width:14px;height:14px;background:#1565c0;border-radius:3px;display:inline-block;"></span>' +
-'       <span>Upcoming Event</span>' +
-'   </div>' +
+                    '   <div style="display:flex; align-items:center; gap:6px;">' +
+                    '       <span style="width:14px;height:14px;background:#1565c0;border-radius:3px;display:inline-block;"></span>' +
+                    '       <span>Upcoming Event</span>' +
+                    '   </div>' +
 
-'</div>' +
+                    '</div>' +
 
                 '</div>' +
 
@@ -929,46 +929,46 @@
                     '};' +
                     'var amenityRules = {' +
                    '  all: {'+
-      ' min:"1 Hour",'+
-       'max:"6 Hours",'+
-      ' advance:"2 Days",'+
-      ' breakTime:"30 Min",'+
-       'capacity:"Depends on Amenity",'+
-      ' approval:"Depends on Type"'+
-   '},'+
-'   sport: {' +
-'       min:"1 Hour",' +
-'       max:"3 Hours",' +
-'       advance:"2 Days",' +
-'       breakTime:"30 Min",' +
-'       capacity:"20 People",' +
-'       approval:"No"' +
-'   },' +
-'   social: {' +
-'       min:"2 Hours",' +
-'       max:"5 Hours",' +
-'       advance:"3 Days",' +
-'       breakTime:"45 Min",' +
-'       capacity:"50 People",' +
-'       approval:"Yes"' +
-'   },' +
-'   culture: {' +
-'       min:"3 Hours",' +
-'       max:"8 Hours",' +
-'       advance:"5 Days",' +
-'       breakTime:"1 Hour",' +
-'       capacity:"100 People",' +
-'       approval:"Yes"' +
-'   },' +
-'   corporate: {' +
-'       min:"1 Hour",' +
-'       max:"6 Hours",' +
-'       advance:"4 Days",' +
-'       breakTime:"30 Min",' +
-'       capacity:"40 People",' +
-'       approval:"Yes"' +
-'   }' +
-'};' +
+                        ' min:"1 Hour",'+
+                        'max:"6 Hours",'+
+                        ' advance:"2 Days",'+
+                        ' breakTime:"30 Min",'+
+                        'capacity:"Depends on Amenity",'+
+                        ' approval:"Depends on Type"'+
+                    '},'+
+                    '   sport: {' +
+                    '       min:"1 Hour",' +
+                    '       max:"3 Hours",' +
+                    '       advance:"2 Days",' +
+                    '       breakTime:"30 Min",' +
+                    '       capacity:"20 People",' +
+                    '       approval:"No"' +
+                    '   },' +
+                    '   social: {' +
+                    '       min:"2 Hours",' +
+                    '       max:"5 Hours",' +
+                    '       advance:"3 Days",' +
+                    '       breakTime:"45 Min",' +
+                    '       capacity:"50 People",' +
+                    '       approval:"Yes"' +
+                    '   },' +
+                    '   culture: {' +
+                    '       min:"3 Hours",' +
+                    '       max:"8 Hours",' +
+                    '       advance:"5 Days",' +
+                    '       breakTime:"1 Hour",' +
+                    '       capacity:"100 People",' +
+                    '       approval:"Yes"' +
+                    '   },' +
+                    '   corporate: {' +
+                    '       min:"1 Hour",' +
+                    '       max:"6 Hours",' +
+                    '       advance:"4 Days",' +
+                    '       breakTime:"30 Min",' +
+                    '       capacity:"40 People",' +
+                    '       approval:"Yes"' +
+                    '   }' +
+                    '};' +
                     '  var categoryCounts = {'+
                         ' sport: { occupied:0, remaining:0 },'+
                         ' culture: { occupied:0, remaining:0 },'+
@@ -998,65 +998,65 @@
 
                 'calendar.getEvents().forEach(function(event){'+
 
-            ' var eventAmenity = event.extendedProps.amenity;'+
-            'var eventSubtype = event.extendedProps.subtype;'+
+                        ' var eventAmenity = event.extendedProps.amenity;'+
+                        'var eventSubtype = event.extendedProps.subtype;'+
 
-            ' var start = event.start;'+
-            ' var end   = event.end ? event.end : new Date(start.getTime() + 60*60000);'+
+                        ' var start = event.start;'+
+                        ' var end   = event.end ? event.end : new Date(start.getTime() + 60*60000);'+
 
-            'var eventStatus = "";'+
+                        'var eventStatus = "";'+
 
-       ' if(end < now){'+
-            'eventStatus = "past";'+
-       ' }'+
-        'else if(start <= now && end >= now){'+
-            'eventStatus = "present";'+
-       ' }'+
-       ' else{'+
-          '  eventStatus = "future";'+
-       ' }'+
+                ' if(end < now){'+
+                        'eventStatus = "past";'+
+                ' }'+
+                    'else if(start <= now && end >= now){'+
+                        'eventStatus = "present";'+
+                ' }'+
+                ' else{'+
+                    '  eventStatus = "future";'+
+                ' }'+
 
-        
+                    
 
-        'if(activeAmenity !== "all" && eventAmenity !== activeAmenity){'+
-            'event.setProp("display","none");'+
-           ' return;'+
-      '  }'+
+                    'if(activeAmenity !== "all" && eventAmenity !== activeAmenity){'+
+                        'event.setProp("display","none");'+
+                    ' return;'+
+                '  }'+
 
-        'if(activeSubtype !== "all" && eventSubtype !== activeSubtype){'+
-           ' event.setProp("display","none");'+
-           ' return;'+
-       ' }'+
+                    'if(activeSubtype !== "all" && eventSubtype !== activeSubtype){'+
+                    ' event.setProp("display","none");'+
+                    ' return;'+
+                ' }'+
 
-     '   if(activeStatus !== "all" && eventStatus !== activeStatus){'+
-           ' event.setProp("display","none");'+
-         '   return;'+
-      '  }'+
+                '   if(activeStatus !== "all" && eventStatus !== activeStatus){'+
+                    ' event.setProp("display","none");'+
+                    '   return;'+
+                '  }'+
 
-        'event.setProp("display","auto");'+
+                    'event.setProp("display","auto");'+
 
-  '  });'+
-    
-  '  updateEventStats();'+
-'}'+
-'if(monthSelector){' +
+            '  });'+
+                
+            '  updateEventStats();'+
+            '}'+
+            'if(monthSelector){' +
 
-'monthSelector.addEventListener("change", function(){' +
+            'monthSelector.addEventListener("change", function(){' +
 
-'   var parts = this.value.split("-");' +
-'   var year  = parseInt(parts[0]);' +
-'   var month = parseInt(parts[1]);' +
+            '   var parts = this.value.split("-");' +
+            '   var year  = parseInt(parts[0]);' +
+            '   var month = parseInt(parts[1]);' +
 
-'   var newDate = new Date(year, month, 1);' +
+            '   var newDate = new Date(year, month, 1);' +
 
-'   calendar.changeView("dayGridMonth", newDate);' +
+            '   calendar.changeView("dayGridMonth", newDate);' +
 
-'   var viewDropdown = document.getElementById("viewSelector");' +
-'   if(viewDropdown){ viewDropdown.value = "dayGridMonth"; }' +
+            '   var viewDropdown = document.getElementById("viewSelector");' +
+            '   if(viewDropdown){ viewDropdown.value = "dayGridMonth"; }' +
 
-'});' +
+            '});' +
 
-'}' +
+            '}' +
                     'function openModal(url){' +
                     'document.getElementById("nsFrame").src = url;' +
                     'document.getElementById("nsModal").style.display="block"; }' +
@@ -1169,96 +1169,96 @@
                     '],' +
                     'eventDidMount:function(info){' +
 
-' var now = new Date();' +
-' var start = info.event.start;' +
-' var end = info.event.end ? info.event.end : new Date(start.getTime() + 60*60000);' +
+                        ' var now = new Date();' +
+                        ' var start = info.event.start;' +
+                        ' var end = info.event.end ? info.event.end : new Date(start.getTime() + 60*60000);' +
 
-' if(end < now){' +
-'     info.el.classList.add("past-event");' +
-' }' +
-' else if(start <= now && end >= now){' +
-'     info.el.classList.add("present-event");' +
-' }' +
-' else {' +
-'     info.el.classList.add("future-event");' +
-' }' +
+                        ' if(end < now){' +
+                        '     info.el.classList.add("past-event");' +
+                        ' }' +
+                        ' else if(start <= now && end >= now){' +
+                        '     info.el.classList.add("present-event");' +
+                        ' }' +
+                        ' else {' +
+                        '     info.el.classList.add("future-event");' +
+                        ' }' +
 
-' info.el.addEventListener("mouseenter", function(e){' +
+                        ' info.el.addEventListener("mouseenter", function(e){' +
 
-'   var tooltip = document.createElement("div");' +
-'   tooltip.className = "fc-modern-tooltip";' +
+                        '   var tooltip = document.createElement("div");' +
+                        '   tooltip.className = "fc-modern-tooltip";' +
 
-'   var startTime = start.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});' +
-'   var endTime   = end.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});' +
+                        '   var startTime = start.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});' +
+                        '   var endTime   = end.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});' +
 
-'   var statusText = "";' +
-'   if(end < now){ statusText = "Past"; }' +
-'   else if(start <= now && end >= now){ statusText = "Ongoing"; }' +
-'   else { statusText = "Upcoming"; }' +
+                        '   var statusText = "";' +
+                        '   if(end < now){ statusText = "Past"; }' +
+                        '   else if(start <= now && end >= now){ statusText = "Ongoing"; }' +
+                        '   else { statusText = "Upcoming"; }' +
 
-'   var subtype = info.event.extendedProps.subtype;' +
-'   var slotInfo = "";' +
+                        '   var subtype = info.event.extendedProps.subtype;' +
+                        '   var slotInfo = "";' +
 
-'   if(subtype && subtypeCounts[subtype]){' +
-'       slotInfo =' +
-'           "<div style=\\\'margin-top:8px;padding-top:6px;border-top:1px solid #eee;\\\'>" +' +
-'           "<div><span class=\\\'label\\\'>Occupied:</span> <strong style=\\\'color:#d32f2f\\\'>" +' +
-'           subtypeCounts[subtype].occupied +' +
-'           "</strong></div>" +' +
-'           "<div><span class=\\\'label\\\'>Remaining:</span> <strong style=\\\'color:#2e7d32\\\'>" +' +
-'           subtypeCounts[subtype].remaining +' +
-'           "</strong></div>" +' +
-'           "</div>";' +
-'   }' +
+                        '   if(subtype && subtypeCounts[subtype]){' +
+                        '       slotInfo =' +
+                        '           "<div style=\\\'margin-top:8px;padding-top:6px;border-top:1px solid #eee;\\\'>" +' +
+                        '           "<div><span class=\\\'label\\\'>Occupied:</span> <strong style=\\\'color:#d32f2f\\\'>" +' +
+                        '           subtypeCounts[subtype].occupied +' +
+                        '           "</strong></div>" +' +
+                        '           "<div><span class=\\\'label\\\'>Remaining:</span> <strong style=\\\'color:#2e7d32\\\'>" +' +
+                        '           subtypeCounts[subtype].remaining +' +
+                        '           "</strong></div>" +' +
+                        '           "</div>";' +
+                        '   }' +
 
-'   tooltip.innerHTML =' +
-'       "<div class=\\\'tooltip-header\\\'>" +' +
-'           "<div class=\\\'tooltip-icon\\\'><i class=\\\'fa-solid fa-calendar\\\'></i></div>" +' +
-'           "<div>" +' +
-'               "<div class=\\\'tooltip-title\\\'>" + info.event.title + "</div>" +' +
-'               "<div class=\\\'tooltip-time\\\'>" + startTime + " - " + endTime + "</div>" +' +
-'           "</div>" +' +
-'       "</div>" +' +
-'       "<div class=\\\'tooltip-body\\\'>" +' +
-'           "<div><span class=\\\'label\\\'>Amenity:</span> " + (info.event.extendedProps.amenity || "-") + "</div>" +' +
-'           "<div><span class=\\\'label\\\'>Subtype:</span> " + (info.event.extendedProps.subtype || "-") + "</div>" +' +
-'           "<div><span class=\\\'label\\\'>Status:</span> " + statusText + "</div>" +' +
-'           slotInfo +' +
-'       "</div>";' +
+                        '   tooltip.innerHTML =' +
+                        '       "<div class=\\\'tooltip-header\\\'>" +' +
+                        '           "<div class=\\\'tooltip-icon\\\'><i class=\\\'fa-solid fa-calendar\\\'></i></div>" +' +
+                        '           "<div>" +' +
+                        '               "<div class=\\\'tooltip-title\\\'>" + info.event.title + "</div>" +' +
+                        '               "<div class=\\\'tooltip-time\\\'>" + startTime + " - " + endTime + "</div>" +' +
+                        '           "</div>" +' +
+                        '       "</div>" +' +
+                        '       "<div class=\\\'tooltip-body\\\'>" +' +
+                        '           "<div><span class=\\\'label\\\'>Amenity:</span> " + (info.event.extendedProps.amenity || "-") + "</div>" +' +
+                        '           "<div><span class=\\\'label\\\'>Subtype:</span> " + (info.event.extendedProps.subtype || "-") + "</div>" +' +
+                        '           "<div><span class=\\\'label\\\'>Status:</span> " + statusText + "</div>" +' +
+                        '           slotInfo +' +
+                        '       "</div>";' +
 
-'   document.body.appendChild(tooltip);' +
-'   tooltip.style.left = (e.pageX + 15) + "px";' +
-'   tooltip.style.top  = (e.pageY + 15) + "px";' +
+                        '   document.body.appendChild(tooltip);' +
+                        '   tooltip.style.left = (e.pageX + 15) + "px";' +
+                        '   tooltip.style.top  = (e.pageY + 15) + "px";' +
 
-'   info.el.addEventListener("mouseleave", function(){' +
-'       tooltip.remove();' +
-'   }, { once: true });' +
+                        '   info.el.addEventListener("mouseleave", function(){' +
+                        '       tooltip.remove();' +
+                        '   }, { once: true });' +
 
-' });' +
+                        ' });' +
 
-' updateEventStats();' +
+                        ' updateEventStats();' +
 
-'info.el.addEventListener("mouseenter", function(){' +
-'   if(info.el.querySelector(".fc-hover-minus")) return;' +
+                        'info.el.addEventListener("mouseenter", function(){' +
+                        '   if(info.el.querySelector(".fc-hover-minus")) return;' +
 
-'   var icon = document.createElement("div");' +
-'   icon.className = "fc-hover-minus";' +
-'   icon.innerHTML = "<i class=\\\'fa-solid fa-minus\\\'></i>";' +
+                        '   var icon = document.createElement("div");' +
+                        '   icon.className = "fc-hover-minus";' +
+                        '   icon.innerHTML = "<i class=\\\'fa-solid fa-minus\\\'></i>";' +
 
-'   info.el.style.position = "relative";' +
-'   icon.style.position = "absolute";' +
-'   icon.style.top = "2px";' +
-'   icon.style.right = "2px";' +
-'   icon.style.zIndex = "30";' +
+                        '   info.el.style.position = "relative";' +
+                        '   icon.style.position = "absolute";' +
+                        '   icon.style.top = "2px";' +
+                        '   icon.style.right = "2px";' +
+                        '   icon.style.zIndex = "30";' +
 
-'   info.el.appendChild(icon);' +
-'});' +
+                        '   info.el.appendChild(icon);' +
+                        '});' +
 
-'info.el.addEventListener("mouseleave", function(){' +
-'   var icon = info.el.querySelector(".fc-hover-minus");' +
-'   if(icon) icon.remove();' +
-'});' +
-'},' +
+                        'info.el.addEventListener("mouseleave", function(){' +
+                        '   var icon = info.el.querySelector(".fc-hover-minus");' +
+                        '   if(icon) icon.remove();' +
+                        '});' +
+                        '},' +
 
                       'eventContent:function(arg){' +
 
@@ -1343,10 +1343,10 @@
                         // '   + "&amenity=" + amenity);' +
                         // '},'+
                         '   openModal("/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T"' +
-'       + "&date=" + eventDate' +
-'       + "&title=" + eventTitle' +
-'       + "&amenity=" + amenity);' +
-'},'+
+                    '       + "&date=" + eventDate' +
+                    '       + "&title=" + eventTitle' +
+                    '       + "&amenity=" + amenity);' +
+                    '},'+
 
 
                            'dateClick:function(info){' +
