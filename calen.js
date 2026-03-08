@@ -18,67 +18,7 @@
                     type: ui.FieldType.INLINEHTML,
                     label: 'Calendar'
                 });
-//                 function getCustomers(){
 
-//                     var customers = [];
-
-//                     var customerSearch = search.create({
-//                         type: search.Type.CUSTOMER,
-//                         filters: [
-//                             ['isinactive','is','F']
-//                         ],
-//                         columns: [
-//                             'internalid',
-//                             'altname'
-//                         ]
-//                     });
-
-//                     customerSearch.run().each(function(result){
-
-//                         customers.push({
-//                             id: result.getValue('internalid'),
-//                             name: result.getValue('altname')
-//                         });
-
-//                         return true;
-//                     });
-
-//                     return customers;
-//                 }
-//                 var customerData = getCustomers();
-
-//                 var dropdownOptions = '<option value="all">All Customers</option>';
-//                 var checkboxHtml = '';
-
-//                 var colors = ["#2A3A76","#8e24aa","#1565c0","#d32f2f","#2e7d32","#ff6d00","#00897b"];
-
-// customerData.forEach(function(cust, index){
-
-//     dropdownOptions += 
-//         '<option value="'+cust.id+'">'+cust.name+'</option>';
-
-//     var initial = cust.name ? cust.name.charAt(0).toUpperCase() : "?";
-//     var color = colors[index % colors.length];
-
-//     checkboxHtml +=
-//         '<div class="customer-item">' +
-
-//             '<label class="customer-label">' +
-
-//                 '<input type="checkbox" class="custCheck" value="'+cust.id+'" checked>' +
-
-//                 '<span class="avatar-circle" style="background:'+color+'">' +
-//                     initial +
-//                 '</span>' +
-
-//                 '<span class="customer-name">' +
-//                     cust.name +
-//                 '</span>' +
-
-//             '</label>' +
-
-//         '</div>';
-// });
                 html.defaultValue =
 
                     
@@ -90,7 +30,7 @@
                     '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">' +
 
                    '<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">' +
-'<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>' +
+                '<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>' +
 
                     '<style>' +
                     '#calendar { height: auto; min-height: 450px; position: relative; font-size:13px; padding:10px; }'+
@@ -277,110 +217,110 @@
                         '#miniCalendar .fc-daygrid-day-number {'+
                             'float: none !important;'+
                         '}'+
-                    '#miniCalendar .selected-week-row td {'+
-                    ' background-color: rgba(42, 58, 118, 0.15) !important;'+
+                        '#miniCalendar .selected-week-row td {'+
+                        ' background-color: rgba(42, 58, 118, 0.15) !important;'+
+                        '}'+
+
+                        '#miniCalendar .selected-week-row .fc-daygrid-day-number {'+
+                        ' font-weight: 600;'+
+                        '}'+
+
+
+
+                    '#miniCalendar .selected-week-row .fc-day-today {'+
+                        'background-color: #2A3A76 !important;  ' +
+                    '}'+
+                    '.amenity-card {' +
+                    '   background:#ffffff;' +
+                    '   padding:18px;' +
+                    '   border-radius:14px;' +
+                    '   box-shadow:0 6px 18px rgba(0,0,0,0.08);' +
+                    '   font-size:13px;' +
+                    '}' +
+
+                    '.amenity-header {' +
+                    '   display:flex;' +
+                    '   gap:12px;' +
+                    '   align-items:center;' +
+                    '   margin-bottom:12px;' +
+                    '}' +
+
+                    '.amenity-icon {' +
+                    '   width:45px;' +
+                    '   height:45px;' +
+                    '   background:#2A3A76;' +
+                    '   color:#fff;' +
+                    '   border-radius:10px;' +
+                    '   display:flex;' +
+                    '   align-items:center;' +
+                    '   justify-content:center;' +
+                    '   font-size:18px;' +
+                    '}' +
+
+                    '.amenity-title {' +
+                    '   font-size:15px;' +
+                    '   font-weight:600;' +
+
+
+                    '}' +
+
+                    '.amenity-section-title {' +
+                    '   font-size:16px;' +
+                    '   font-weight:700;' +   
+                    '   color:#2A3A76;' +
+                    '}' +
+
+                    '.amenity-subtitle {' +
+                    '   font-size:12px;' +
+                    '   color:#777;' +
+                    '}' +
+
+                    '.amenity-section {' +
+                    '   margin-bottom:12px;' +
+                    '}' +
+
+                    '.amenity-divider {' +
+                    '   height:1px;' +
+                    '   background:#eee;' +
+                    '   margin:12px 0;' +
+                    '}' +
+
+                    '.section-title {' +
+                    '   font-weight:600;' +
+                    '   margin-bottom:8px;' +
+                    '}' +
+
+                    '.rule-row {' +
+                    '   display:flex;' +
+                    '   justify-content:space-between;' +
+                    '   align-items:center;' +
+                    '   padding:4px 0;' +
+                    '}' +
+
+                    '.rule-row i {' +
+                    '   margin-right:6px;' +
+                    '   color:#2A3A76;' +
+                    '}' +
+
+                    '.rule-value {' +
+                    '   font-weight:600;' +
+                    '   color:#444;' +
                     '}'+
 
-                    '#miniCalendar .selected-week-row .fc-daygrid-day-number {'+
-                    ' font-weight: 600;'+
+                    '#miniCalendar .fc-day-today .fc-daygrid-day-number {'+
+                        'color: #ffffff !important;'+
+                    ' font-weight: 700;'+
                     '}'+
 
 
-
-                '#miniCalendar .selected-week-row .fc-day-today {'+
-                    'background-color: #2A3A76 !important;  ' +
-                '}'+
-                '.amenity-card {' +
-                '   background:#ffffff;' +
-                '   padding:18px;' +
-                '   border-radius:14px;' +
-                '   box-shadow:0 6px 18px rgba(0,0,0,0.08);' +
-                '   font-size:13px;' +
-                '}' +
-
-                '.amenity-header {' +
-                '   display:flex;' +
-                '   gap:12px;' +
-                '   align-items:center;' +
-                '   margin-bottom:12px;' +
-                '}' +
-
-                '.amenity-icon {' +
-                '   width:45px;' +
-                '   height:45px;' +
-                '   background:#2A3A76;' +
-                '   color:#fff;' +
-                '   border-radius:10px;' +
-                '   display:flex;' +
-                '   align-items:center;' +
-                '   justify-content:center;' +
-                '   font-size:18px;' +
-                '}' +
-
-                '.amenity-title {' +
-                '   font-size:15px;' +
-                '   font-weight:600;' +
+                    '#miniCalendar .selected-week-row td:not(.fc-day-today) {'+
+                    '    background-color: rgba(42, 58, 118, 0.15) !important;'+
+                    '}'+
 
 
-                '}' +
-
-                '.amenity-section-title {' +
-                '   font-size:16px;' +
-                '   font-weight:700;' +   
-                '   color:#2A3A76;' +
-                '}' +
-
-                '.amenity-subtitle {' +
-                '   font-size:12px;' +
-                '   color:#777;' +
-                '}' +
-
-                '.amenity-section {' +
-                '   margin-bottom:12px;' +
-                '}' +
-
-                '.amenity-divider {' +
-                '   height:1px;' +
-                '   background:#eee;' +
-                '   margin:12px 0;' +
-                '}' +
-
-                '.section-title {' +
-                '   font-weight:600;' +
-                '   margin-bottom:8px;' +
-                '}' +
-
-                '.rule-row {' +
-                '   display:flex;' +
-                '   justify-content:space-between;' +
-                '   align-items:center;' +
-                '   padding:4px 0;' +
-                '}' +
-
-                '.rule-row i {' +
-                '   margin-right:6px;' +
-                '   color:#2A3A76;' +
-                '}' +
-
-                '.rule-value {' +
-                '   font-weight:600;' +
-                '   color:#444;' +
-                '}'+
-
-                '#miniCalendar .fc-day-today .fc-daygrid-day-number {'+
-                    'color: #ffffff !important;'+
-                ' font-weight: 700;'+
-                '}'+
-
-
-                '#miniCalendar .selected-week-row td:not(.fc-day-today) {'+
-                '    background-color: rgba(42, 58, 118, 0.15) !important;'+
-                '}'+
-
-
-                '#miniCalendar .fc-day-today {'+
-                    'background-color: #2A3A76 !important;'+
-                '}'+
+                    '#miniCalendar .fc-day-today {'+
+                        'background-color: #2A3A76 !important;'+
+                    '}'+
 
 
 
@@ -408,23 +348,19 @@
                         '.fc-col-header-cell {' +
                         '   text-align: left !important;' +
                         '}' +
-' .fc-timegrid-slot-lane { position:relative; }'+
+                        ' .fc-timegrid-slot-lane { position:relative; }'+
 
-'.fc-hover-plus i { color:#2A3A76 !important; }'+
-'.fc-timegrid-slot-lane {' +
-'   position:relative;' +
+                        '.fc-hover-plus i { color:#2A3A76 !important; }'+
+                        '.fc-timegrid-slot-lane {' +
+                        '   position:relative;' +
 
-'}' +
+                        '}' +
 
+                        '.fc-timegrid-slot-lane:hover,' +
+                        '.fc-timegrid-slot-lane:hover * {' +
+                        '   cursor:pointer;' +
+                        '}' +
 
-
-'.fc-timegrid-slot-lane:hover,' +
-'.fc-timegrid-slot-lane:hover * {' +
-'   cursor:pointer;' +
-'}' +
-
-
-     
                             '.event-icon { margin-right:6px; }' +
 
                         '.fc-event {' +
@@ -759,51 +695,41 @@
                    '<div style="display:flex; gap:20px;">' +
 
 
-'<div style="width:260px;">' +
+                '<div style="width:260px;">' +
 
-   //left side calender
-    '<div id="miniCalendar"></div>' +
+                //left side calender
+                    '<div id="miniCalendar"></div>' +
 
-   //amenities drop down
-    '<div style="margin-top:15px;">' +
+                //amenities drop down
+                    '<div style="margin-top:15px;">' +
 
-         
-'<div id="amenityRulesBox" class="amenity-card">' +
-'   <div class="amenity-section-title">Amenity Rules</div>' +
-'</div>'+
-        
-        // '<select id="customerDropdown" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:6px; margin-bottom:8px;">' +
-        //    dropdownOptions +
-        // '</select>' +
+                        
+                '<div id="amenityRulesBox" class="amenity-card">' +
+                '   <div class="amenity-section-title">Amenity Rules</div>' +
+                '</div>'+
+                        
 
-        
-        // '<div id="customerList" style="max-height:200px; overflow-y:auto;">' +
+                    '</div>' +
 
-        //     checkboxHtml +
+                '</div>' +
 
-        // '</div>' +
-
-    '</div>' +
-
-'</div>' +
-
-//main right calender
-'<div style="flex:1; position:relative;">' +
+            //main right calender
+            '<div style="flex:1; position:relative;">' +
 
 
-               '<div style="flex:1; position:relative;">' +
-              '<div class="top-buttons">' +
+                        '<div style="flex:1; position:relative;">' +
+                        '<div class="top-buttons">' +
 
-//     '<button type="button" id="legendOpenBtn" class="floating-legend-btn">' +
-//     '<i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>' +
-//     'Booking Indicator' +
-// '</button>' +
-'<button type="button" id="exportBtn" class="floating-legend-btn export-btn">' +
-    '<i class="fa-solid fa-file-export" style="margin-right:6px;"></i>' +
-    'Export' +
-'</button>' +
+            //     '<button type="button" id="legendOpenBtn" class="floating-legend-btn">' +
+            //     '<i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>' +
+            //     'Booking Indicator' +
+            // '</button>' +
+            '<button type="button" id="exportBtn" class="floating-legend-btn export-btn">' +
+                '<i class="fa-solid fa-file-export" style="margin-right:6px;"></i>' +
+                'Export' +
+            '</button>' +
 
-'</div>' +
+            '</div>' +
                 '<div id="legendDialog" class="legend-dialog">' +
                 '  <div class="legend-dialog-content">' +
                 '    <div class="legend-dialog-header">' +
@@ -842,8 +768,7 @@
                  '   <option class="high" value="timeGridDay">Day View</option>' +
                 '       <option class="high" value="dayGridMonth">Month View</option>' +
                 '    </select>' +
-                // '<button class="view-tab active" data-view="timeGridWeek">Week</button>'+
-                // '<button class="view-tab" data-view="dayGridMonth">Month</button>'+
+                
 
                 '    <select id="amenityFilter" class="toolbar-select">' +
                 '       <option value="all">All Amenities</option>' +
@@ -1076,10 +1001,7 @@
 
                     'calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {' +
                     'initialView:"timeGridWeek",' +
-                    // 'views:{' +
-                    // '   timeGridWeek:{ buttonText:"Week" },' +
-                    // '   dayGridMonth:{ buttonText:"Month" }' +
-                    // '},' +
+                    
 
                     'firstDay:1,' +
                     'allDaySlot:false,' +
@@ -1101,19 +1023,19 @@
                 'hour12: false' +
                 '},' +
                           'views:{' +
-'   timeGridDay:{' +
-'       buttonText:"Day",' +
-'       dayHeaderFormat:{ weekday:"short", day:"numeric", month:"short", year:"numeric" }' +
-'   },' +
-'   timeGridWeek:{' +
-'       buttonText:"Week",' +
-'       dayHeaderFormat:{ weekday:"short", day:"numeric" }' +
-'   },' +
-'   dayGridMonth:{' +
-'       buttonText:"Month",' +
-'       dayHeaderFormat:{ weekday:"short" }' +
-'   }' +
-'},' +
+                '   timeGridDay:{' +
+                '       buttonText:"Day",' +
+                '       dayHeaderFormat:{ weekday:"short", day:"numeric", month:"short", year:"numeric" }' +
+                '   },' +
+                '   timeGridWeek:{' +
+                '       buttonText:"Week",' +
+                '       dayHeaderFormat:{ weekday:"short", day:"numeric" }' +
+                '   },' +
+                '   dayGridMonth:{' +
+                '       buttonText:"Month",' +
+                '       dayHeaderFormat:{ weekday:"short" }' +
+                '   }' +
+                '},' +
 
 
                 'timeZone: "local",' +       
@@ -1123,10 +1045,10 @@
                    ' datesSet:function(){'+
                     'updateEventStats();'+
                 '   var monthDropdown = document.getElementById("monthSelector");' +
-'   if(monthDropdown){' +
-'       var currentDate = calendar.getDate();' +
-'       monthDropdown.value = currentDate.getFullYear() + "-" + currentDate.getMonth();' +
-'   }' +
+                '   if(monthDropdown){' +
+                '       var currentDate = calendar.getDate();' +
+                '       monthDropdown.value = currentDate.getFullYear() + "-" + currentDate.getMonth();' +
+                '   }' +
 
                 '},'+
         
@@ -1342,7 +1264,7 @@
                         // '   + "&title=" + eventTitle' +
                         // '   + "&amenity=" + amenity);' +
                         // '},'+
-                        '   openModal("/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T"' +
+                        '   openModal("/app/site/hosting/scriptlet.nl?script=2871&deploy=1&ifrmcntnr=T"' +
                     '       + "&date=" + eventDate' +
                     '       + "&title=" + eventTitle' +
                     '       + "&amenity=" + amenity);' +
@@ -1372,7 +1294,7 @@
                     '   lastClickTime = currentTime;' +
 
                     '   if(dbl){' +
-                    '       openModal("/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T&date=" + info.dateStr);' +
+                    '       openModal("/app/site/hosting/scriptlet.nl?script=2871&deploy=1&ifrmcntnr=T&date=" + info.dateStr);' +
                     '   }' +
 
                     '},' +
@@ -1381,208 +1303,181 @@
             ';'+
             
                             'function animateCalendarView(){' +
-'   var calEl = document.getElementById("calendar");' +
-'   calEl.classList.add("fc-view-fade");' +
+                            '   var calEl = document.getElementById("calendar");' +
+                            '   calEl.classList.add("fc-view-fade");' +
 
-'   setTimeout(function(){' +
-'       calEl.classList.add("fc-view-fade-active");' +
-'   },10);' +
+                            '   setTimeout(function(){' +
+                            '       calEl.classList.add("fc-view-fade-active");' +
+                            '   },10);' +
 
-'   setTimeout(function(){' +
-'       calEl.classList.remove("fc-view-fade");' +
-'       calEl.classList.remove("fc-view-fade-active");' +
-'   },300);' +
-'}'+
-                'calendar.render();' +
-                '   updateAmenityRules("all");' +
-    'var calendarEl = document.getElementById("calendar");' +
+                            '   setTimeout(function(){' +
+                            '       calEl.classList.remove("fc-view-fade");' +
+                            '       calEl.classList.remove("fc-view-fade-active");' +
+                            '   },300);' +
+                            '}'+
+                                            'calendar.render();' +
+                                            '   updateAmenityRules("all");' +
+                                'var calendarEl = document.getElementById("calendar");' +
 
-'var hoverIcon = document.createElement("div");' +
-'hoverIcon.className = "fc-hover-plus";' +
-'hoverIcon.innerHTML = "<i class=\\\'fa-solid fa-plus\\\'></i>";' +
-'hoverIcon.style.position = "absolute";' +
-'hoverIcon.style.pointerEvents = "none";' +
-'hoverIcon.style.zIndex = "100";' +
-'hoverIcon.style.display = "none";' +
+                            'var hoverIcon = document.createElement("div");' +
+                            'hoverIcon.className = "fc-hover-plus";' +
+                            'hoverIcon.innerHTML = "<i class=\\\'fa-solid fa-plus\\\'></i>";' +
+                            'hoverIcon.style.position = "absolute";' +
+                            'hoverIcon.style.pointerEvents = "none";' +
+                            'hoverIcon.style.zIndex = "100";' +
+                            'hoverIcon.style.display = "none";' +
 
-'calendarEl.appendChild(hoverIcon);' +
+                            'calendarEl.appendChild(hoverIcon);' +
 
-'calendarEl.addEventListener("mousemove", function(e){' +
+                            'calendarEl.addEventListener("mousemove", function(e){' +
 
-'   var slot = e.target.closest(".fc-timegrid-slot-lane");' +
+                            '   var slot = e.target.closest(".fc-timegrid-slot-lane");' +
 
-'   if(slot){' +
+                            '   if(slot){' +
 
-'       var calRect = calendarEl.getBoundingClientRect();' +
+                            '       var calRect = calendarEl.getBoundingClientRect();' +
 
-'       hoverIcon.style.left = (e.clientX - calRect.left - 11) + "px";' +
-'       hoverIcon.style.top  = (e.clientY - calRect.top - 11) + "px";' +
+                            '       hoverIcon.style.left = (e.clientX - calRect.left - 11) + "px";' +
+                            '       hoverIcon.style.top  = (e.clientY - calRect.top - 11) + "px";' +
 
-'       hoverIcon.style.display = "flex";' +
+                            '       hoverIcon.style.display = "flex";' +
 
-'   } else {' +
+                            '   } else {' +
 
-'       hoverIcon.style.display = "none";' +
+                            '       hoverIcon.style.display = "none";' +
 
-'   }' +
+                            '   }' +
 
-'});' +
+                            '});' +
 
-'calendarEl.addEventListener("mouseleave", function(){' +
-'   hoverIcon.style.display = "none";' +
-'});'+
-                    'var monthSelector = document.getElementById("monthSelector");' +
+                            'calendarEl.addEventListener("mouseleave", function(){' +
+                            '   hoverIcon.style.display = "none";' +
+                            '});'+
+                                                'var monthSelector = document.getElementById("monthSelector");' +
 
-'if(monthSelector){' +
+                            'if(monthSelector){' +
 
-'   var today = new Date();' +
-'   var currentYear = today.getFullYear();' +
+                            '   var today = new Date();' +
+                            '   var currentYear = today.getFullYear();' +
 
-'   for(var y = currentYear; y <= currentYear; y++){' +
-'       for(var m = 0; m < 12; m++){' +
+                            '   for(var y = currentYear; y <= currentYear; y++){' +
+                            '       for(var m = 0; m < 12; m++){' +
 
-'           var date = new Date(y, m, 1);' +
-'           var monthName = date.toLocaleString("default", { month: "long" });' +
+                            '           var date = new Date(y, m, 1);' +
+                            '           var monthName = date.toLocaleString("default", { month: "long" });' +
 
-'           var option = document.createElement("option");' +
-'           option.value = y + "-" + m;' +
-'           option.text  = monthName + " " + y;' +
+                            '           var option = document.createElement("option");' +
+                            '           option.value = y + "-" + m;' +
+                            '           option.text  = monthName + " " + y;' +
 
-'           monthSelector.appendChild(option);' +
-'       }' +
-'   }' +
+                            '           monthSelector.appendChild(option);' +
+                            '       }' +
+                            '   }' +
 
-'   monthSelector.value = today.getFullYear() + "-" + today.getMonth();' +
-'}' +
-                    'document.getElementById("statusFilter")'+
-'.addEventListener("change", function(){'+
-   ' activeStatus = this.value;'+
-   'updateAmenityRules(activeAmenity);'+
-    'applyFilters();'+
-    
-'});'+
-                    'document.getElementById("amenityFilter")'+
-'.addEventListener("change", function(){'+
-    'activeAmenity = this.value;'+
-    'activeSubtype = "all";'+
-    'updateAmenityRules(activeAmenity);'+
-    'applyFilters();'+
-    
-'});'+
-'function updateAmenityRules(type){' +
+                            '   monthSelector.value = today.getFullYear() + "-" + today.getMonth();' +
+                            '}' +
+                                                'document.getElementById("statusFilter")'+
+                            '.addEventListener("change", function(){'+
+                            ' activeStatus = this.value;'+
+                            'updateAmenityRules(activeAmenity);'+
+                                'applyFilters();'+
+                                
+                            '});'+
+                                                'document.getElementById("amenityFilter")'+
+                            '.addEventListener("change", function(){'+
+                                'activeAmenity = this.value;'+
+                                'activeSubtype = "all";'+
+                                'updateAmenityRules(activeAmenity);'+
+                                'applyFilters();'+
+                                
+                            '});'+
+                            'function updateAmenityRules(type){' +
 
-'   var box = document.getElementById("amenityRulesBox");' +
-'   if(!box) return;' +
+                            '   var box = document.getElementById("amenityRulesBox");' +
+                            '   if(!box) return;' +
 
-'   var r = amenityRules[type] || amenityRules["all"];' +
+                            '   var r = amenityRules[type] || amenityRules["all"];' +
 
-'   var labelMap = {' +
-'       all:"All Amenities",' +
-'       sport:"Sport Amenity",' +
-'       social:"Social Amenity",' +
-'       culture:"Cultural Amenity",' +
-'       corporate:"Corporate Amenity"' +
-'   };' +
+                            '   var labelMap = {' +
+                            '       all:"All Amenities",' +
+                            '       sport:"Sport Amenity",' +
+                            '       social:"Social Amenity",' +
+                            '       culture:"Cultural Amenity",' +
+                            '       corporate:"Corporate Amenity"' +
+                            '   };' +
 
-'   var selectedLabel = labelMap[type] || "All Amenities";' +
+                            '   var selectedLabel = labelMap[type] || "All Amenities";' +
 
-'   box.innerHTML =' +
+                            '   box.innerHTML =' +
 
-'       "<div class=\\"amenity-section-title\\">Amenity Rules</div>" +' +
+                            '       "<div class=\\"amenity-section-title\\">Amenity Rules</div>" +' +
 
-'       "<div style=\\"font-size:12px;color:#777;margin-top:4px;margin-bottom:8px;\\">" +' +
-'           "Amenity Type: <strong style=\\"color:#2A3A76;\\">" + selectedLabel + "</strong>" +' +
-'       "</div>" +' +
+                            '       "<div style=\\"font-size:12px;color:#777;margin-top:4px;margin-bottom:8px;\\">" +' +
+                            '           "Amenity Type: <strong style=\\"color:#2A3A76;\\">" + selectedLabel + "</strong>" +' +
+                            '       "</div>" +' +
 
-'       "<div class=\\"amenity-divider\\"></div>" +' +
+                            '       "<div class=\\"amenity-divider\\"></div>" +' +
 
-'       "<div class=\\"rule-row\\">" +' +
-'           "<div><i class=\\"fa-solid fa-hourglass-start\\"></i> Min Duration</div>" +' +
-'           "<div class=\\"rule-value\\">" + r.min + "</div>" +' +
-'       "</div>" +' +
+                            '       "<div class=\\"rule-row\\">" +' +
+                            '           "<div><i class=\\"fa-solid fa-hourglass-start\\"></i> Min Duration</div>" +' +
+                            '           "<div class=\\"rule-value\\">" + r.min + "</div>" +' +
+                            '       "</div>" +' +
 
-'       "<div class=\\"rule-row\\">" +' +
-'           "<div><i class=\\"fa-solid fa-hourglass-end\\"></i> Max Duration</div>" +' +
-'           "<div class=\\"rule-value\\">" + r.max + "</div>" +' +
-'       "</div>" +' +
+                            '       "<div class=\\"rule-row\\">" +' +
+                            '           "<div><i class=\\"fa-solid fa-hourglass-end\\"></i> Max Duration</div>" +' +
+                            '           "<div class=\\"rule-value\\">" + r.max + "</div>" +' +
+                            '       "</div>" +' +
 
-'       "<div class=\\"rule-row\\">" +' +
-'           "<div><i class=\\"fa-solid fa-calendar-check\\"></i> Advance Booking</div>" +' +
-'           "<div class=\\"rule-value\\">" + r.advance + "</div>" +' +
-'       "</div>" +' +
+                            '       "<div class=\\"rule-row\\">" +' +
+                            '           "<div><i class=\\"fa-solid fa-calendar-check\\"></i> Advance Booking</div>" +' +
+                            '           "<div class=\\"rule-value\\">" + r.advance + "</div>" +' +
+                            '       "</div>" +' +
 
-'       "<div class=\\"rule-row\\">" +' +
-'           "<div><i class=\\"fa-solid fa-mug-hot\\"></i> Break Time</div>" +' +
-'           "<div class=\\"rule-value\\">" + r.breakTime + "</div>" +' +
-'       "</div>" +' +
+                            '       "<div class=\\"rule-row\\">" +' +
+                            '           "<div><i class=\\"fa-solid fa-mug-hot\\"></i> Break Time</div>" +' +
+                            '           "<div class=\\"rule-value\\">" + r.breakTime + "</div>" +' +
+                            '       "</div>" +' +
 
-'       "<div class=\\"rule-row\\">" +' +
-'           "<div><i class=\\"fa-solid fa-users\\"></i> Capacity</div>" +' +
-'           "<div class=\\"rule-value\\">" + r.capacity + "</div>" +' +
-'       "</div>" +' +
+                            '       "<div class=\\"rule-row\\">" +' +
+                            '           "<div><i class=\\"fa-solid fa-users\\"></i> Capacity</div>" +' +
+                            '           "<div class=\\"rule-value\\">" + r.capacity + "</div>" +' +
+                            '       "</div>" +' +
 
-'       "<div class=\\"rule-row\\">" +' +
-'           "<div><i class=\\"fa-solid fa-circle-check\\"></i> Approval Required</div>" +' +
-'           "<div class=\\"rule-value\\">" + r.approval + "</div>" +' +
-'       "</div>";' +
+                            '       "<div class=\\"rule-row\\">" +' +
+                            '           "<div><i class=\\"fa-solid fa-circle-check\\"></i> Approval Required</div>" +' +
+                            '           "<div class=\\"rule-value\\">" + r.approval + "</div>" +' +
+                            '       "</div>";' +
 
-'}' +
-//                     'document.querySelectorAll(".view-tab").forEach(function(btn){' +
+                            '}' +
 
-// '   btn.addEventListener("click", function(e){' +
-// '       e.preventDefault();' +
-// '       e.stopPropagation();' +
+                            'document.getElementById("viewSelector").addEventListener("change", function(){' +
+                '   var selectedView = this.value;' +
+                '   calendar.changeView(selectedView);' +
+                'animateCalendarView();'+
 
+                '   if(selectedView === "dayGridMonth"){' +
+                '       document.getElementById("calendar").style.height = "auto";' +
+                '   } else {' +
+                '       document.getElementById("calendar").style.height = "600px";' +
+                '   }' +
+                '});' +
+                                    'var openBtn = document.getElementById("legendOpenBtn");' +
+                'var dialog = document.getElementById("legendDialog");' +
+                'var closeBtn = document.getElementById("legendCloseBtn");' +
+                'var newBtn = document.getElementById("newBtn");' +
+                'if(newBtn){' +
+                '   newBtn.addEventListener("click", function(){' +
+                '       openModal("/app/site/hosting/scriptlet.nl?script=2869&deploy=1&deploy=customdeploy1&ifrmcntnr=T");' +
+                '   });' +
+                '}' +
 
-// '       document.querySelectorAll(".view-tab")' +
-// '       .forEach(function(b){ b.classList.remove("active"); });' +
+                'if(openBtn && dialog){' +
+                '   openBtn.onclick = function(){ dialog.style.display = "block"; };' +
+                '}' +
 
-// '       btn.classList.add("active");' +
-
-// '       var selectedView = btn.getAttribute("data-view");' +
-
-// '       calendar.changeView(selectedView);' +
-
-// '       if(selectedView === "dayGridMonth"){' +
-// '           document.getElementById("calendar").style.height = "auto";' +
-// '       } else {' +
-// '           document.getElementById("calendar").style.height = "850px";' +
-// '       }' +
-
-// '       var currentDate = calendar.getDate();' +
-// '       if(typeof miniCalendar !== "undefined"){ miniCalendar.gotoDate(currentDate); }' +
-// '       return false;' +
-// '   });' +
-
-// '});' +
-                    'document.getElementById("viewSelector").addEventListener("change", function(){' +
-'   var selectedView = this.value;' +
-'   calendar.changeView(selectedView);' +
-'animateCalendarView();'+
-
-'   if(selectedView === "dayGridMonth"){' +
-'       document.getElementById("calendar").style.height = "auto";' +
-'   } else {' +
-'       document.getElementById("calendar").style.height = "600px";' +
-'   }' +
-'});' +
-                    'var openBtn = document.getElementById("legendOpenBtn");' +
-'var dialog = document.getElementById("legendDialog");' +
-'var closeBtn = document.getElementById("legendCloseBtn");' +
-'var newBtn = document.getElementById("newBtn");' +
-'if(newBtn){' +
-'   newBtn.addEventListener("click", function(){' +
-'       openModal("/app/site/hosting/scriptlet.nl?script=customscript1000&deploy=customdeploy1&ifrmcntnr=T");' +
-'   });' +
-'}' +
-
-'if(openBtn && dialog){' +
-'   openBtn.onclick = function(){ dialog.style.display = "block"; };' +
-'}' +
-
-'if(closeBtn && dialog){' +
-'   closeBtn.onclick = function(){ dialog.style.display = "none"; };' +
-'}' +
+                'if(closeBtn && dialog){' +
+                '   closeBtn.onclick = function(){ dialog.style.display = "none"; };' +
+                '}' +
 
               // updating the count of the remaining slots in the event
              'function updateEventStats(){' +
@@ -1613,10 +1508,6 @@
             // 'calendar.render();' +  
 
             '}' +
-
-
-
-
 
                     'updateEventStats();'+
 

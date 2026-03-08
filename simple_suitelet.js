@@ -12,11 +12,11 @@ define(['N/ui/serverWidget'], function (ui) {
 
            var mode = request.parameters.mode || 'new';
 
-var eventDate = request.parameters.date || '';
-var eventTitle = request.parameters.title || '';
-var amenity = request.parameters.amenity || '';
+            var eventDate = request.parameters.date || '';
+            var eventTitle = request.parameters.title || '';
+            var amenity = request.parameters.amenity || '';
 
-var isReschedule = (mode === 'reschedule');
+            var isReschedule = (mode === 'reschedule');
 
             var form = ui.createForm({
                 title: ' '
@@ -137,19 +137,19 @@ var isReschedule = (mode === 'reschedule');
                 '   }' +
                 '}' +
 
-'var selectedDate = "' + eventDate + '";' +
-'var selectedTitle = "' + eventTitle + '";' +
-'var selectedAmenity = "' + amenity + '";' +
+                'var selectedDate = "' + eventDate + '";' +
+                'var selectedTitle = "' + eventTitle + '";' +
+                'var selectedAmenity = "' + amenity + '";' +
 
-'function goBack(){' +
-'   if(window.parent){' +
-'       window.parent.document.getElementById("nsFrame").src =' +
-'           "/app/site/hosting/scriptlet.nl?script=1014&deploy=1&ifrmcntnr=T"' +
-'           + "&date=" + selectedDate' +
-'           + "&title=" + encodeURIComponent(selectedTitle)' +
-'           + "&amenity=" + encodeURIComponent(selectedAmenity);' +
-'   }' +
-'}' +
+                'function goBack(){' +
+                '   if(window.parent){' +
+                '       window.parent.document.getElementById("nsFrame").src =' +
+                '           "/app/site/hosting/scriptlet.nl?script=2870&deploy=1&ifrmcntnr=T"' +
+                '           + "&date=" + selectedDate' +
+                '           + "&title=" + encodeURIComponent(selectedTitle)' +
+                '           + "&amenity=" + encodeURIComponent(selectedAmenity);' +
+                '   }' +
+                '}' +
 
                 '</script>';
 

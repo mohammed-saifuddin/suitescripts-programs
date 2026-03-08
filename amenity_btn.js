@@ -17,9 +17,6 @@ define(['N/ui/serverWidget'], (ui) => {
                 title: ' '
             });
 
-            /* =========================
-               MODAL CONTENT
-            ========================== */
 
             const content = form.addField({
                 id: 'custpage_content',
@@ -32,11 +29,11 @@ define(['N/ui/serverWidget'], (ui) => {
             content.defaultValue =
                 '<style>' +
 
-                /* Remove NetSuite spacing */
+                
                 'td.uir-field-wrapper { padding:0 !important; }' +
                 'table.uir-table-layout { width:100% !important; }' +
 
-                /* Center container */
+                
                 '.modal-wrapper {' +
                 '   display:flex;' +
                 '   flex-direction:column;' +
@@ -93,39 +90,39 @@ define(['N/ui/serverWidget'], (ui) => {
                 '</div>' +
 
                 '</div>'+
-'<script>' +
+                '<script>' +
 
-'var selectedDate = "' + date + '";' +
-'var selectedTitle = "' + title + '";' +
-'var selectedAmenity = "' + amenity + '";' +
+                'var selectedDate = "' + date + '";' +
+                'var selectedTitle = "' + title + '";' +
+                'var selectedAmenity = "' + amenity + '";' +
 
-'function goToNew(){' +
-'   var frame = window.parent.document.getElementById("nsFrame");' +
-'   if(frame){' +
-'       frame.src = "/app/site/hosting/scriptlet.nl?script=1000&deploy=1"' +
-'           + "&mode=new"' +
-'           + "&return=action"' +
-'           + "&ifrmcntnr=T"' +
+                'function goToNew(){' +
+                '   var frame = window.parent.document.getElementById("nsFrame");' +
+                '   if(frame){' +
+                '       frame.src = "/app/site/hosting/scriptlet.nl?script=2869&deploy=1"' +
+                '           + "&mode=new"' +
+                '           + "&return=action"' +
+                '           + "&ifrmcntnr=T"' +
 
 
-'   }' +
-'}' +
+                '   }' +
+                '}' +
 
-'function goToReschedule(){' +
-'   var frame = window.parent.document.getElementById("nsFrame");' +
-'   if(frame){' +
-'       frame.src = "/app/site/hosting/scriptlet.nl?script=1000&deploy=1"' +
-'           + "&mode=reschedule"' +
-'           + "&return=action"' +
-'           + "&ifrmcntnr=T"' +
-'           + "&date=" + selectedDate' +
-'           + "&title=" + encodeURIComponent(selectedTitle)' +
-'           + "&amenity=" + encodeURIComponent(selectedAmenity);' +
-'   }' +
-'}' +
+                'function goToReschedule(){' +
+                '   var frame = window.parent.document.getElementById("nsFrame");' +
+                '   if(frame){' +
+                '       frame.src = "/app/site/hosting/scriptlet.nl?script=2869&deploy=1"' +
+                '           + "&mode=reschedule"' +
+                '           + "&return=action"' +
+                '           + "&ifrmcntnr=T"' +
+                '           + "&date=" + selectedDate' +
+                '           + "&title=" + encodeURIComponent(selectedTitle)' +
+                '           + "&amenity=" + encodeURIComponent(selectedAmenity);' +
+                '   }' +
+                '}' +
 
-'</script>';
-            
+                '</script>';
+                            
 
             const dateFld = form.addField({
                 id: 'custpage_date',
