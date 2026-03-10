@@ -3,135 +3,272 @@
  * @NScriptType Suitelet
  */
 
-define(['N/ui/serverWidget'], (serverWidget) => {
+define(['N/ui/serverWidget','N/record','N/url','N/search'], 
+(serverWidget,record,url,search) => {
 
-    const onRequest = (context) => {
+const onRequest = (context) => {
 
-        const form = serverWidget.createForm({
-            title: ' '
-        });
+if(context.request.method === 'GET'){
 
-        const htmlField = form.addField({
-            id: 'custpage_login_html',
-            type: serverWidget.FieldType.INLINEHTML,
-            label: 'Login'
-        });
+let empId = context.request.parameters.empid;
+let email = context.request.parameters.email;
 
-        let html = `
-        <style>
+log.debug("All Params", context.request.parameters);
+log.debug("Emp ID received", empId);
+log.debug("Email received", email);
 
-        body{
-            font-family: Arial;
-        }
+/* If empId not passed, find using email */
+if(!empId && email){
 
-        .header{
-            display:flex;
-            align-items:center;
-            border:1px solid #2d6fa3;
-        }
+var empSearch = search.create({
+    type: search.Type.EMPLOYEE,
+    filters:[
+        ['email','is',email]
+    ],
+    columns:['internalid']
+});
 
-        .logo{
-            
-        }
+var result = empSearch.run().getRange({
+    start:0,
+    end:1
+});
 
-        .portal{
-            flex:1;
-            background:#6b3fa0;
-            color:white;
-            text-align:center;
-            padding:12px;
-            font-size:18px;
-        }
+if(result.length > 0){
+    empId = result[0].getValue('internalid');
+}
+}
 
-        .login-box{
-            width:350px;
-            margin:80px auto;
-        }
+log.debug("Final empId in GET", empId);
 
-        .row{
-            display:flex;
-            margin-bottom:15px;
-        }
+const form = serverWidget.createForm({
+title:' ',
+hideNavBar:true
+});
 
-        .row label{
-            width:120px;
-            font-size:14px;
-        }
+const htmlField = form.addField({
+id:'custpage_html',
+type:serverWidget.FieldType.INLINEHTML,
+label:' '
+});
 
-        .row input{
-            width:200px;
-            padding:6px;
-            border:1px solid black;
-        }
+let html = `
 
-        .btns{
-            margin-top:20px;
-        }
+<style>
+body{
+font-family:Arial;
+}
 
-        .btn{
-            background:#1c6ea4;
-            color:white;
-            padding:8px 20px;
-            border:none;
-            cursor:pointer;
-            margin-right:10px;
-        }
+.header{
+display:flex;
+border:1px solid #2d6fa3;
+}
 
-        </style>
+.portal{
+flex:1;
+background:#6b3fa0;
+color:white;
+text-align:center;
+padding:12px;
+font-size:18px;
+}
 
-        <div class="header">
+.login-box{
+width:350px;
+margin:80px auto;
+}
 
-            
+.row{
+display:flex;
+margin-bottom:15px;
+}
 
-            <div class="portal">
-                Reachware  Portal Password Setup
-             </div>
+.row label{
+width:120px;
+font-size:14px;
+}
 
-        </div>
+.row input{
+width:200px;
+padding:6px;
+border:1px solid black;
+}
 
+.btn{
+background:#1c6ea4;
+color:white;
+padding:8px 20px;
+border:none;
+cursor:pointer;
+}
+</style>
 
-        <div class="login-box">
+<div class="header">
+<div class="portal">
+Reachware Portal Password Setup
+</div>
+</div>
 
-            <div class="row">
-                <label>Email</label>
-                <input type="text" id="email">
-            </div>
+<div class="login-box">
 
-            <div class="row">
-                <label>Password</label>
-                <input type="password" id="password">
-            </div>
-                
-            <div class="row">
-                <label>Confirm <br/> Password</label>
-                <input type="password" id="password">
-            </div>
-            <div class="btns">
-                <button class="btn" onclick="login()">Confirm</button>
-                <button class="btn" onclick="forgot()">Reset</button>
-            </div>
+<form method="POST" onsubmit="return validate()">
 
-        </div>
+<input type="hidden" name="empid" value="${empId || ''}">
+<input type="hidden" name="email" value="${email || ''}">
 
-        <script>
+<div class="row">
+<label>Email</label>
+<input type="text" id="email" name="email" value="${email || ''}">
+</div>
 
-        function login(){
-            alert("Login clicked");
-        }
+<div class="row">
+<label>Password</label>
+<input type="password" name="password" id="password">
+</div>
 
-        function forgot(){
-            alert("Forgot password clicked");
-        }
+<div class="row">
+<label>Confirm Password</label>
+<input type="password" name="confirmpassword" id="confirmpassword">
+</div>
+<button class="btn" type="submit" onclick="return validate()">Confirm</button>
 
-        </script>
-        `;
+</form>
 
-        htmlField.defaultValue = html;
+</div>
 
-        context.response.writePage(form);
+<script>
 
-    };
+function validate(){
 
-    return { onRequest };
+var email = document.getElementById("email").value.trim();
+var p1 = document.getElementById("password").value.trim();
+var p2 = document.getElementById("confirmpassword").value.trim();
+
+if(email === ""){
+    alert("Email is mandatory");
+    return false;
+}
+
+if(p1 === "" || p2 === ""){
+    alert("Password and Confirm Password are required");
+    return false;
+}
+
+if(p1.length < 8){
+    alert("Password must be at least 8 characters");
+    return false;
+}
+
+var regex = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).+$/;
+
+if(!regex.test(p1)){
+    alert("Password must contain letters, numbers and special characters");
+    return false;
+}
+
+if(p1 !== p2){
+    alert("Passwords do not match");
+    return false;
+}
+
+return true;
+
+}
+
+</script>
+`;
+
+htmlField.defaultValue = html;
+
+context.response.writePage(form);
+
+}
+
+/* POST METHOD */
+
+else{
+
+let email = context.request.parameters.email || '';
+let empId = context.request.parameters.empid || '';
+let password = context.request.parameters.password || '';
+let confirmPassword = context.request.parameters.confirmpassword || '';
+
+log.debug("Email parameter", email);
+log.debug("empId parameter", empId);
+log.debug("Password value", password);
+
+/* If empId missing, search by email */
+if(!empId && email){
+
+var empSearch = search.create({
+type: search.Type.EMPLOYEE,
+filters:[
+['email','is',email]
+],
+columns:['internalid']
+});
+
+var result = empSearch.run().getRange({
+start:0,
+end:1
+});
+
+if(result.length > 0){
+empId = result[0].getValue('internalid');
+}
+
+}
+
+log.debug("Final empId", empId);
+
+if(!empId){
+var loginUrl = url.resolveScript({
+    scriptId:'customscript2872',
+    deploymentId:'customdeploy1',
+    returnExternalUrl:true
+});
+
+context.response.write(
+"<html><script>alert('Employee not found');window.location.href='" + loginUrl + "';</script></html>"
+);
+return;
+}
+
+if(password !== confirmPassword){
+context.response.write("<h3>Passwords do not match</h3>");
+return;
+}
+
+/* Update Password */
+
+record.submitFields({
+type: record.Type.EMPLOYEE,
+id: empId,
+values:{
+custentity_rw_dms_portalpassword: password
+},
+options:{
+ignoreMandatoryFields:true
+}
+});
+
+log.debug("Password Updated", empId);
+
+/* Redirect to Home */
+
+var homeUrl = url.resolveScript({
+scriptId:'customscript2874',
+deploymentId:'customdeploy3',
+returnExternalUrl:true
+});
+
+context.response.write(
+"<html><script>window.location.href='"+homeUrl+"'</script></html>"
+);
+
+}
+
+};
+
+return {onRequest};
 
 });

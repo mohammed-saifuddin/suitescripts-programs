@@ -17,7 +17,7 @@ define(['N/ui/serverWidget','N/url'], (serverWidget,url) => {
        const loginUrl = url.resolveScript({
             scriptId: 'customscript2872',
             deploymentId: 'customdeploy1',
-           // returnExternalUrl: true
+           returnExternalUrl: true
         });
         const homeUrl = url.resolveScript({
             scriptId:'customscript2874',
@@ -146,7 +146,7 @@ html, body {
 
                     Reachware Project Management Portal
 
-                    <button class="logout" onclick="logout('${loginUrl}')">Logout</button>
+                    <button class="logout" onclick="logout()">Logout</button>
 
                 </div>
 
@@ -219,7 +219,8 @@ function openProjects(){
                 
                     function logout(url){
                     alert("logout")
-    window.top.location.href = url;
+   
+    window.location.replace("${loginUrl}");
 }
                 
 

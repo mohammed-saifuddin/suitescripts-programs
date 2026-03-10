@@ -3,8 +3,8 @@
  * @NScriptType Suitelet
  */
 
-define(['N/ui/serverWidget','N/url','N/search','N/redirect','N/email','N/runtime'], 
-(serverWidget,url,search,redirect,email,runtime) => {
+define(['N/ui/serverWidget','N/url','N/search','N/redirect','N/email','N/runtime','N/record'], 
+(serverWidget,url,search,redirect,email,runtime,record) => {
 
 const onRequest = (context) => {
 
@@ -20,12 +20,6 @@ const onRequest = (context) => {
             deploymentId: 'customdeploy2',
             returnExternalUrl: true
         });
-
-        // const homeUrl = url.resolveScript({
-        //     scriptId:'customscript2874',
-        //     deploymentId:'customdeploy3',
-        //     //returnExternalUrl:true
-        // });
 
         const htmlField = form.addField({
             id: 'custpage_login_html',
@@ -63,9 +57,7 @@ const onRequest = (context) => {
             display:flex;
             margin-bottom:15px;
         }
-.error{
-    border:2px solid red !important;
-}
+
         .row label{
             width:120px;
         }
@@ -83,10 +75,6 @@ const onRequest = (context) => {
             cursor:pointer;
             margin-right:10px;
         }
-        label{
-        font-size:14px;
-        
-        }
         </style>
 
         <div class="header">
@@ -103,7 +91,7 @@ const onRequest = (context) => {
 
         <div class="login-box">
 
-            <form method="POST" onsubmit="return validateLogin()">
+            <form method="POST">
 
             <div class="row">
                 <label>Email</label>
@@ -115,34 +103,95 @@ const onRequest = (context) => {
                 <input type="password" name="password" id="password">
             </div>
 
-            <button type="submit" class="btn" >Login</button>
+            <button type="submit" class="btn" onclick="return login()">Login</button>
 
             </form>
 
-            <button type="button" class="btn" onclick="forgot()">Forgot Password</button>
+            <button type="button" class="btn" onclick="forgot()">Update Password</button>
 
         </div>
 
         <script>
-        function validateLogin(){
+    function forgot(){
 
-    var emailField = document.getElementById("email");
-    var email = emailField.value.trim();
+var email = document.getElementById("email").value.trim();
+var password = document.getElementById("password").value.trim();
 
-    // remove previous highlight
-    emailField.classList.remove("error");
+/* Email check */
+if(!email){
+    alert("Please enter email first");
+    return ;
+}
 
-    if(email === ""){
-        emailField.classList.add("error");
-        emailField.focus();
-        return false;
+/* Password empty */
+if(!password){
+    alert("Please enter your current password");
+    return;
+}
+
+/* Minimum 8 characters */
+if(password.length < 8){
+    alert("Password must be at least 8 characters");
+    return;
+}
+
+/* Must contain letter, number and special character */
+var regex = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).+$/;
+
+if(!regex.test(password)){
+    alert("Password must contain letters, numbers and special characters");
+    return;
+}
+
+/* Redirect only if all validations pass */
+window.location.href = "${forgotUrl}&email=" + encodeURIComponent(email);
+var validateUrl = "${forgotUrl}&action=validate&email=" + encodeURIComponent(email);
+
+/* call suitelet to validate email */
+fetch(validateUrl)
+.then(function(response){
+    return response.text();
+})
+.then(function(data){
+
+    if(data === "INVALID"){
+        alert("Email is not registered");
+    }else{
+        window.location.href = "${forgotUrl}&email=" + encodeURIComponent(email);
     }
 
-    return true;
+});
 }
-        function forgot(){
-            window.location.replace("${forgotUrl}");
-        }
+    function login(){
+
+var email = document.getElementById("email").value.trim();
+var password = document.getElementById("password").value.trim();
+
+if(!email){
+    alert("Please enter email");
+    return false;
+}
+
+if(!password){
+    alert("Please enter password");
+    return false;
+}
+/* Minimum length check */
+if(password.length < 8){
+    alert("Password must be at least 8 characters");
+    return ;
+}
+
+/* Password must contain letter, number and special character */
+var regex = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).+$/;
+
+if(!regex.test(password)){
+    alert("Password must contain letters, numbers and special characters");
+    return;
+}
+return true;
+
+}
         </script>
         `;
 
@@ -151,18 +200,21 @@ const onRequest = (context) => {
         context.response.writePage(form);
     }
 
-    // LOGIN VALIDATION
     else{
 
-       var emailValue = context.request.parameters.email || '';
-var password = context.request.parameters.password || '';
+        var emailValue = context.request.parameters.email || '';
+        var password = context.request.parameters.password || '';
 
-emailValue = emailValue.trim();
-password = password.trim();
-if(!emailValue){
-    context.response.write('<h3 style="color:red">Email is required</h3>');
-    return;
+        emailValue = emailValue.trim();
+        password = password.trim();
+        
+        if(!emailValue){
+context.response.write(
+"<html><script>alert('Please enter email first');window.history.back();</script></html>"
+);
+return;
 }
+
         var employeeSearch = search.create({
             type: search.Type.EMPLOYEE,
             filters:[
@@ -170,7 +222,6 @@ if(!emailValue){
             ],
             columns:[
                 'internalid',
-                'entityid',
                 'custentity_rw_dms_portalpassword'
             ]
         });
@@ -179,129 +230,75 @@ if(!emailValue){
             start:0,
             end:1
         });
-
+        if(result.length == 0){
+context.response.write(
+"<html><script>alert('This email is not registered');window.history.back();</script></html>"
+);
+return;
+}
         if(result.length > 0){
 
-          var storedPassword = result[0].getValue({
-    name: 'custentity_rw_dms_portalpassword'
-});
+            var storedPassword = result[0].getValue({
+                name: 'custentity_rw_dms_portalpassword'
+            });
 
-if(storedPassword){
-    storedPassword = storedPassword.trim();
-}else{
-    storedPassword = "Reachware123";
-}
+            var empId = result[0].getValue({
+                name: 'internalid'
+            });
+            log.debug("Employee ID from search", empId);
+log.debug("Email from login", emailValue);
 
-log.debug("Stored Password", storedPassword);
-log.debug("Entered Password", password);
-log.debug("email",emailValue);
-// CASE 1: user entered password
-if(password && password === storedPassword){
+            log.debug("Employee ID from search", empId);
+            log.debug("Stored Password", storedPassword);
+            log.debug("Entered Password", password);
 
-    log.debug("LOGIN SUCCESS","Password matched");
+            // FIRST LOGIN → RESET PASSWORD PAGE
+            if(!storedPassword){
 
-    // var homeUrl = url.resolveScript({
-    //     scriptId: 'customscript2874',
-    //     deploymentId: 'customdeploy3',
-    //     returnExternalUrl: true
-    // });
-
-    // context.response.write(
-    //     "<html><script>window.location.href='" + homeUrl + "';</script></html>"
-    // );
-    var empId = result[0].getValue('internalid');
-
-var resetUrl = url.resolveScript({
-    scriptId:'customscript2873', // your reset password script
-deploymentId:'customdeploy2',
+          var resetUrl = url.resolveScript({
+    scriptId: 'customscript2873',
+    deploymentId: 'customdeploy2',
+    returnExternalUrl: true,
     params:{
         empid: empId,
         email: emailValue
-    },
-    returnExternalUrl: true
-});
-log.debug("Sending Email To", emailValue);
-email.send({
-author:102,
-recipients:emailValue,
-subject:'Reachware Portal Password Reset',
-body:
-'<p>Hello,</p>'+
-'<p>Click the link below to reset your password:</p>'+
-'<a href="'+resetUrl+'">Reset Password</a>'
-});
-log.debug("email send to",emailValue);
-context.response.write(`
-<html>
-<body style="font-family:Arial;text-align:center;margin-top:100px">
-
-<h2>Password Reset Email Sent</h2>
-
-<p>Please check your email to reset your password.</p>
-
-</body>
-</html>
-`);
-
-}
-
-// CASE 2: password not entered → use employee default password
-else if(!password){
-
-    log.debug("LOGIN SUCCESS","Using employee default password");
-
-    // var homeUrl = url.resolveScript({
-    //     scriptId: 'customscript2874',
-    //     deploymentId: 'customdeploy3',
-    //     returnExternalUrl: true
-    // });
-
-    // context.response.write(
-    //     "<html><script>window.location.href='" + homeUrl + "';</script></html>"
-    // );
-     var empId = result[0].getValue('internalid');
-
-var resetUrl = url.resolveScript({
-    scriptId:'customscript2873',
-deploymentId:'customdeploy2',
-    params:{
-        empid: empId,
-        email: emailValue
-    },
-    returnExternalUrl: true
+    }
 });
 
-email.send({
-author:102,
-recipients:emailValue,
-subject:'Reachware Portal Password Reset',
-body:
-'<p>Hello,</p>'+
-'<p>Click the link below to reset your password:</p>'+
-'<a href="'+resetUrl+'">Reset Password</a>'
+redirect.redirect({
+    url: resetUrl
 });
-context.response.write(`
-<html>
-<body style="font-family:Arial;text-align:center;margin-top:100px">
 
-<h2>Password Reset Email Sent</h2>
+log.debug("Reset URL", resetUrl);
 
-<p>Please check your email to reset your password.</p>
+// context.response.write(
+// "<html><script>window.location.href='" + resetUrl + "';</script></html>"
+// );
+            }
 
-</body>
-</html>
-`);
+            // NORMAL LOGIN
+            else if(password === storedPassword){
 
-}
+                var homeUrl = url.resolveScript({
+                    scriptId:'customscript2874',
+                    deploymentId:'customdeploy3',
+                    returnExternalUrl:true
+                });
 
-// CASE 3: wrong password
-else{
+                context.response.write(
+                    "<html><script>window.location.href='"+homeUrl+"';</script></html>"
+                );
+            }
 
-    context.response.write('<h3 style="color:red">Invalid Password</h3>');
-}
+            else{
+                context.response.write(
+"<html><script>alert('Invalid Password'); window.history.back();</script></html>"
+);
+            }
 
-        }else{
-            context.response.write('<h3 style="color:red">Invalid Email or Password</h3>');
+        }
+        else{
+            context.response.write("<html><script>alert('Invalid email'); window.history.back();</script></html>");
         }
     }
 
