@@ -145,22 +145,9 @@ if(!regex.test(password)){
 
 /* Redirect only if all validations pass */
 window.location.href = "${forgotUrl}&email=" + encodeURIComponent(email);
-var validateUrl = "${forgotUrl}&action=validate&email=" + encodeURIComponent(email);
 
-/* call suitelet to validate email */
-fetch(validateUrl)
-.then(function(response){
-    return response.text();
-})
-.then(function(data){
 
-    if(data === "INVALID"){
-        alert("Email is not registered");
-    }else{
-        window.location.href = "${forgotUrl}&email=" + encodeURIComponent(email);
-    }
 
-});
 }
     function login(){
 
@@ -282,7 +269,11 @@ log.debug("Reset URL", resetUrl);
                 var homeUrl = url.resolveScript({
                     scriptId:'customscript2874',
                     deploymentId:'customdeploy3',
-                    returnExternalUrl:true
+                    returnExternalUrl:true,
+                    params:{
+        empid: empId,
+        email: emailValue
+    }
                 });
 
                 context.response.write(

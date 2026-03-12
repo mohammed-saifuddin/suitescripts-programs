@@ -3,7 +3,7 @@
  * @NScriptType Suitelet
  */
 
-define(['N/ui/serverWidget'], (serverWidget) => {
+define(['N/ui/serverWidget','N/url'], (serverWidget,url) => {
 
 const onRequest = (context) => {
 
@@ -15,19 +15,24 @@ var htmlField = form.addField({
     label:'HTML'
 });
 
+const projectUrl = url.resolveScript({
+scriptId: 'customscript2877',
+deploymentId: 'customdeploy1',
+returnExternalUrl: true
+});
+
 htmlField.defaultValue = `
 
 <style>
-#custpage_html_fs {
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
+html, body{
+margin:0 !important;
+padding:0 !important;
+width:100%;
+height:100%;
 }
 
-#custpage_html_fs legend {
-    display: none !important;
-}
-    
+/* remove netsuite borders */
+
 #custpage_html_fs,
 #custpage_html_fs_lbl,
 #custpage_html_fs_val,
@@ -35,191 +40,155 @@ htmlField.defaultValue = `
 .uir-field-wrapper,
 .uir-field,
 .uir-page-body-content,
-#main_form {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-#main_form,
-.uir-page-body-content,
-.uir-field-wrapper,
-.uir-field {
-    border: none !important;
-    box-shadow: none !important;
-}
-    table {
-    border-collapse: collapse;
-    width: 100%;
-}
-body{
-    font-family:Arial;
-    margin:0;
+#main_form{
+border:none !important;
+box-shadow:none !important;
+background:transparent !important;
+padding:0 !important;
+margin:0 !important;
 }
 
-.content{
-    padding:20px;
+#custpage_html_fs legend{
+display:none !important;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-}
+/* layout */
 
-th{
-    background:#6f2da8;
-    color:white;
-    padding:10px;
-    border:1px solid #ccc;
-}
-
-td{
-    padding:10px;
-    border:1px solid #ccc;
-    text-align:center;
-}
-
-.addBtn{
-    font-size:35px;
-    cursor:pointer;
-    color:#3c5c8a;
-    margin-bottom:10px;
-}
-.content{
-    border:none;
-}
-
-.container{
-    border:none;
-}
-    table{
-    border-collapse:collapse;
-    width:100%;
-    border:none;
-}
-
-th{
-    background:#6b3fa0;
-    color:white;
-    padding:10px;
-    border:1px solid #ddd;
-}
-
-td{
-    padding:10px;
-    border:1px solid #ddd;
-    text-align:center;
-}
 body{
 font-family:Arial;
 margin:0;
 }
 
 .content{
-padding:20px;
+padding:0px;
 }
 
+/* table */
+
 table{
-border-collapse:collapse;
 width:100%;
+border-collapse:collapse;
 }
 
 th{
 background:#6f2da8;
 color:white;
 padding:10px;
-border:1px solid #ccc;
+border:0px solid #ccc;
 }
 
 td{
 padding:10px;
-border:1px solid #ccc;
+border:0px solid #ccc;
 text-align:center;
 }
+
+/* plus button */
 
 .addBtn{
 font-size:35px;
 cursor:pointer;
 color:#3c5c8a;
 margin-bottom:10px;
+background:none;
+border:none;
 display:flex;
 align-item:left;
+padding:0;
 }
 
 </style>
 
-
 <div class="content">
 
-<div class="addBtn">+</div>
+<iframe id="mainFrame" style="width:100%;height:500px;border:none;display:none;"></iframe>
+
+<div id="homeContent">
+
+<button class="addBtn" type="button" onclick="listProjects()">+</button>
 
 <table>
 
 <tr>
-<th>Project ID</th>
-<th>Customer</th>
-<th>RW Product</th>
-<th>Status</th>
-<th>Total Tickets</th>
-<th>Open</th>
-<th>Closed</th>
+<th style="border:1px solid #ccc;">Project ID</th>
+<th style="border:1px solid #ccc;">Customer</th>
+<th style="border:1px solid #ccc;">RW Product</th>
+<th style="border:1px solid #ccc;">Status</th>
+<th style="border:1px solid #ccc;">Total Tickets</th>
+<th style="border:1px solid #ccc;">Open</th>
+<th style="border:1px solid #ccc;">Closed</th>
 </tr>
 
 <tr>
-<td>RWP0001</td>
-<td>SETRA</td>
-<td>PC ON AP</td>
-<td>COMPLETED</td>
-<td>5</td>
-<td>0</td>
-<td>5</td>
+<td style="border:1px solid #ccc;">RWP0001</td>
+<td style="border:1px solid #ccc;">SETRA</td>
+<td style="border:1px solid #ccc;">PC ON AP</td>
+<td style="border:1px solid #ccc;">COMPLETED</td>
+<td style="border:1px solid #ccc;">5</td>
+<td style="border:1px solid #ccc;">0</td>
+<td style="border:1px solid #ccc;">5</td>
 </tr>
 
 <tr>
-<td>RWP0002</td>
-<td>TEDCO</td>
-<td>PC ON AP</td>
-<td>IN PROGRESS</td>
-<td>2</td>
-<td>1</td>
-<td>1</td>
+<td style="border:1px solid #ccc;">RWP0002</td>
+<td style="border:1px solid #ccc;">TEDCO</td>
+<td style="border:1px solid #ccc;">PC ON AP</td>
+<td style="border:1px solid #ccc;">IN PROGRESS</td>
+<td style="border:1px solid #ccc;">2</td>
+<td style="border:1px solid #ccc;">1</td>
+<td style="border:1px solid #ccc;">1</td>
 </tr>
 
 <tr>
-<td>RWP0003</td>
-<td>TEDCO</td>
-<td>PC ON AR</td>
-<td>IN PROGRESS</td>
-<td>2</td>
-<td>1</td>
-<td>1</td>
+<td style="border:1px solid #ccc;">RWP0003</td>
+<td style="border:1px solid #ccc;">TEDCO</td>
+<td style="border:1px solid #ccc;">PC ON AR</td>
+<td style="border:1px solid #ccc;">IN PROGRESS</td>
+<td style="border:1px solid #ccc;">2</td>
+<td style="border:1px solid #ccc;">1</td>
+<td style="border:1px solid #ccc;">1</td>
 </tr>
 
 <tr>
-<td>RWP0004</td>
-<td>TEDCO</td>
-<td>ADV BUDGETING</td>
-<td>IN PROGRESS</td>
-<td>2</td>
-<td>1</td>
-<td>1</td>
+<td style="border:1px solid #ccc;">RWP0004</td>
+<td style="border:1px solid #ccc;">TEDCO</td>
+<td style="border:1px solid #ccc;">ADV BUDGETING</td>
+<td style="border:1px solid #ccc;">IN PROGRESS</td>
+<td style="border:1px solid #ccc;">2</td>
+<td style="border:1px solid #ccc;">1</td>
+<td style="border:1px solid #ccc;">1</td>
 </tr>
 
 <tr>
-<td>RWP0005</td>
-<td>TEDCO</td>
-<td>MATERIAL REQUEST</td>
-<td>IN PROGRESS</td>
-<td>2</td>
-<td>1</td>
-<td>1</td>
+<td style="border:1px solid #ccc;">RWP0005</td>
+<td style="border:1px solid #ccc;">TEDCO</td>
+<td style="border:1px solid #ccc;">MATERIAL REQUEST</td>
+<td style="border:1px solid #ccc;">IN PROGRESS</td>
+<td style="border:1px solid #ccc;">2</td>
+<td style="border:1px solid #ccc;">1</td>
+<td style="border:1px solid #ccc;">1</td>
 </tr>
 
 </table>
 
 </div>
+</div>
 
+<script>
+
+var projectUrl = '${projectUrl}';
+
+function listProjects(){
+alert("list of projects");
+document.getElementById("homeContent").style.display = "none";
+
+document.getElementById("mainFrame").style.display = "block";
+
+document.getElementById("mainFrame").src = projectUrl;
+
+}
+
+</script>
 `;
 
 context.response.writePage(form);

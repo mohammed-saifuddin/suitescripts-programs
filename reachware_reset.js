@@ -10,8 +10,12 @@ const onRequest = (context) => {
 
 if(context.request.method === 'GET'){
 
-let empId = context.request.parameters.empid;
-let email = context.request.parameters.email;
+
+var empId = context.request.parameters.empid || '';
+var email = context.request.parameters.email || '';
+
+log.debug("empId from URL", empId);
+log.debug("email from URL", email);
 
 log.debug("All Params", context.request.parameters);
 log.debug("Emp ID received", empId);
@@ -224,9 +228,13 @@ if(!empId){
 var loginUrl = url.resolveScript({
     scriptId:'customscript2872',
     deploymentId:'customdeploy1',
-    returnExternalUrl:true
+    returnExternalUrl:true,
+     params: {
+        empid: empId,
+        email: email
+    }
 });
-
+log.debug(loginUrl)
 context.response.write(
 "<html><script>alert('Employee not found');window.location.href='" + loginUrl + "';</script></html>"
 );
@@ -258,7 +266,11 @@ log.debug("Password Updated", empId);
 var homeUrl = url.resolveScript({
 scriptId:'customscript2874',
 deploymentId:'customdeploy3',
-returnExternalUrl:true
+returnExternalUrl:true,
+params:{
+        empid: empId,
+        email: email
+    }
 });
 
 context.response.write(
