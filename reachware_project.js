@@ -179,7 +179,7 @@ padding:0;
 var projectUrl = '${projectUrl}';
 
 function listProjects(){
-alert("list of projects");
+/*alert("list of projects");*/
 document.getElementById("homeContent").style.display = "none";
 
 document.getElementById("mainFrame").style.display = "block";

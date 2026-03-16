@@ -217,7 +217,7 @@ return;
             start:0,
             end:1
         });
-        if(result.length == 0){
+        if(result.length > 1 ){
 context.response.write(
 "<html><script>alert('This email is not registered');window.history.back();</script></html>"
 );
@@ -233,7 +233,7 @@ return;
                 name: 'internalid'
             });
             log.debug("Employee ID from search", empId);
-log.debug("Email from login", emailValue);
+            log.debug("Email from login", emailValue);
 
             log.debug("Employee ID from search", empId);
             log.debug("Stored Password", storedPassword);
