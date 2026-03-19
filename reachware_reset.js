@@ -3,46 +3,49 @@
  * @NScriptType Suitelet
  */
 
-define(['N/ui/serverWidget','N/record','N/url','N/search'], 
-(serverWidget,record,url,search) => {
+define(['N/ui/serverWidget','N/record','N/url','N/search','N/email','N/runtime','N/crypto'], 
+(serverWidget,record,url,search,email,runtime,crypto) => {
 
 const onRequest = (context) => {
 
 if(context.request.method === 'GET'){
 
-
 var empId = context.request.parameters.empid || '';
-var email = context.request.parameters.email || '';
+var emailId = context.request.parameters.email || '';
+var showOtp = context.request.parameters.showotp || '';
 
 log.debug("empId from URL", empId);
-log.debug("email from URL", email);
-
-log.debug("All Params", context.request.parameters);
-log.debug("Emp ID received", empId);
-log.debug("Email received", email);
-
+log.debug("email from URL", emailId);
+const loginUrl = url.resolveScript({
+scriptId: 'customscript2872',
+deploymentId: 'customdeploy1',
+returnExternalUrl: true,
+ params: {
+        empid: empId,
+        email: email
+    }
+});
 /* If empId not passed, find using email */
-if(!empId && email){
+
+if(!empId && emailId){
 
 var empSearch = search.create({
-    type: search.Type.EMPLOYEE,
-    filters:[
-        ['email','is',email]
-    ],
-    columns:['internalid']
+type: search.Type.EMPLOYEE,
+filters:[
+['email','is',emailId]
+],
+columns:['internalid']
 });
 
 var result = empSearch.run().getRange({
-    start:0,
-    end:1
+start:0,
+end:1
 });
 
 if(result.length > 0){
-    empId = result[0].getValue('internalid');
+empId = result[0].getValue('internalid');
 }
 }
-
-log.debug("Final empId in GET", empId);
 
 const form = serverWidget.createForm({
 title:' ',
@@ -114,14 +117,15 @@ Reachware Portal Password Setup
 
 <div class="login-box">
 
-<form method="POST" onsubmit="return validate()">
+<form method="POST">
 
-<input type="hidden" name="empid" value="${empId || ''}">
-<input type="hidden" name="email" value="${email || ''}">
+<input type="hidden" name="empid" value="${empId}">
+<input type="hidden" name="email" value="${emailId}">
+<input type="hidden" name="action" id="action">
 
 <div class="row">
 <label>Email</label>
-<input type="text" id="email" name="email" value="${email || ''}">
+<input type="text" value="${emailId}" readonly>
 </div>
 
 <div class="row">
@@ -133,52 +137,67 @@ Reachware Portal Password Setup
 <label>Confirm Password</label>
 <input type="password" name="confirmpassword" id="confirmpassword">
 </div>
-<button class="btn" type="submit" onclick="return validate()">Confirm</button>
+
+<div class="row" id="otpRow" style="display:${showOtp=='T'?'flex':'none'};">
+<label>Enter OTP</label>
+<input type="text" name="otp" id="otp">
+</div>
+<button class="btn" type="submit" onclick="return confirmReset()">
+Confirm
+</button>
+<button class="btn" type="submit" onclick="setAction('generateotp')">
+Generate OTP
+</button>
+
+
 
 </form>
-
+<div style="border:0.5px solid grey;margin-top:36px;">
+<p style="display:flex;justify-content:center;align-item:center;font-size:12px;font-weight:bold;color:green;">Password should have</p>
+<p style="display:flex;margin-left:12px;color:red;">1.It should contains atleast 8 character </p>
+<p style="display:flex;margin-left:12px;color:red;">2.It should contains special characters @ # $ % & !</p>
+<p style="display:flex;margin-left:12px;color:red;">3.It should contains character and numbers Abc 1234</p>
+</div>
 </div>
 
 <script>
 
-function validate(){
-
-var email = document.getElementById("email").value.trim();
-var p1 = document.getElementById("password").value.trim();
-var p2 = document.getElementById("confirmpassword").value.trim();
-
-if(email === ""){
-    alert("Email is mandatory");
-    return false;
+function setAction(val){
+document.getElementById("action").value = val;
 }
 
-if(p1 === "" || p2 === ""){
-    alert("Password and Confirm Password are required");
-    return false;
+function confirmReset(){
+
+var otpInput = document.getElementById("otp").value;
+
+var storedOtp = sessionStorage.getItem("rw_otp");
+var storedEmail = sessionStorage.getItem("rw_email");
+
+var email = document.querySelector("input[name='email']").value;
+
+if(!storedOtp){
+alert("Please generate OTP first");
+return false;
 }
 
-if(p1.length < 8){
-    alert("Password must be at least 8 characters");
-    return false;
+if(email !== storedEmail){
+alert("Email session mismatch");
+return false;
 }
 
-var regex = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[@$!%*#?&]).+$/;
 
-if(!regex.test(p1)){
-    alert("Password must contain letters, numbers and special characters");
-    return false;
+if(otpInput !== storedOtp){
+alert("Invalid OTP");
+return false;
 }
 
-if(p1 !== p2){
-    alert("Passwords do not match");
-    return false;
-}
-
+document.getElementById("action").value = "resetpassword";
 return true;
 
 }
 
 </script>
+
 `;
 
 htmlField.defaultValue = html;
@@ -187,26 +206,31 @@ context.response.writePage(form);
 
 }
 
-/* POST METHOD */
+/* POST */
 
 else{
 
-let email = context.request.parameters.email || '';
+let action = context.request.parameters.action || '';
+let emailId = context.request.parameters.email || '';
 let empId = context.request.parameters.empid || '';
 let password = context.request.parameters.password || '';
 let confirmPassword = context.request.parameters.confirmpassword || '';
+let otp = context.request.parameters.otp || '';
 
-log.debug("Email parameter", email);
-log.debug("empId parameter", empId);
-log.debug("Password value", password);
+log.debug("Action",action);
+log.debug("Email",emailId);
+log.debug("EmpId",empId);
+log.debug("otp is ",otp);
 
-/* If empId missing, search by email */
-if(!empId && email){
+
+
+
+if(!empId && emailId){
 
 var empSearch = search.create({
 type: search.Type.EMPLOYEE,
 filters:[
-['email','is',email]
+['email','is',emailId]
 ],
 columns:['internalid']
 });
@@ -219,63 +243,147 @@ end:1
 if(result.length > 0){
 empId = result[0].getValue('internalid');
 }
-
 }
 
-log.debug("Final empId", empId);
 
-if(!empId){
-var loginUrl = url.resolveScript({
-    scriptId:'customscript2872',
-    deploymentId:'customdeploy1',
-    returnExternalUrl:true,
-     params: {
-        empid: empId,
-        email: email
-    }
-});
-log.debug(loginUrl)
-context.response.write(
-"<html><script>alert('Employee not found');window.location.href='" + loginUrl + "';</script></html>"
-);
-return;
-}
 
-if(password !== confirmPassword){
-context.response.write("<h3>Passwords do not match</h3>");
-return;
-}
+if(action == 'generateotp'){
 
-/* Update Password */
+var generatedOtp = Math.floor(100000 + Math.random() * 900000);
+
+log.debug("Generated OTP",generatedOtp);
+
+
 
 record.submitFields({
-type: record.Type.EMPLOYEE,
-id: empId,
+type:record.Type.EMPLOYEE,
+id:empId,
 values:{
-custentity_rw_dms_portalpassword: password
+custentityrw_password_:generatedOtp
 },
 options:{
 ignoreMandatoryFields:true
 }
 });
 
-log.debug("Password Updated", empId);
 
-/* Redirect to Home */
+
+
+email.send({
+    author: runtime.getCurrentUser().id,   
+    recipients: [emailId],             
+    subject: "Reachware Portal OTP",
+    body: "Your OTP for password reset is : " + generatedOtp
+});
+
+
+var resetUrl = url.resolveScript({
+scriptId:'customscript2873',
+deploymentId:'customdeploy2',
+returnExternalUrl:true,
+params:{
+empid:empId,
+email:emailId,
+showotp:'T'
+}
+});
+
+context.response.write(`
+<html>
+<script>
+
+sessionStorage.setItem("rw_otp","${generatedOtp}");
+sessionStorage.setItem("rw_email","${emailId}");
+
+window.location.href="${resetUrl}";
+
+</script>
+</html>
+`);
+return;
+
+}
+
+
+
+if(action == 'resetpassword'){
+
+if(password !== confirmPassword){
+context.response.write("<h3>Password mismatch</h3>");
+return;
+}
+
+
+
+//log.debug("seession email",sessionEmail)
+// log.debug(emailId)
+// if(emailId != sessionEmail){
+// context.response.write("<html><script>alert('email session mismatch'); window.history.back();</script></html>");
+// return;
+// }
+
+
+
+// if(otp != sessionOtp){
+// context.response.write("<h3>Invalid OTP</h3>");
+// return;
+// }
+
+
+
+// var empRec = record.load({
+// type:record.Type.EMPLOYEE,
+// id:empId
+// });
+
+// var savedOtp = empRec.getValue('custentityrw_password_');
+
+// if(otp != savedOtp){
+// context.response.write("<h3>Invalid OTP</h3>");
+// return;
+// }
+
+function hashPassword(password){
+
+    var hashObj = crypto.createHash({
+        algorithm: crypto.HashAlg.SHA256
+    });
+
+    hashObj.update({
+        input: password
+    });
+
+    return hashObj.digest({
+        outputEncoding: crypto.Encoding.HEX
+    });
+}
+var hashedPassword = hashPassword(password);
+record.submitFields({
+type:record.Type.EMPLOYEE,
+id:empId,
+values:{
+custentity_rw_dms_portal_password :hashedPassword
+},
+options:{
+ignoreMandatoryFields:true
+}
+});
+
+
 
 var homeUrl = url.resolveScript({
 scriptId:'customscript2874',
 deploymentId:'customdeploy3',
 returnExternalUrl:true,
 params:{
-        empid: empId,
-        email: email
-    }
+empid:empId,
+email:emailId
+}
 });
 
-context.response.write(
-"<html><script>window.location.href='"+homeUrl+"'</script></html>"
-);
+context.response.write("<html><script>window.location='"+homeUrl+"'</script></html>");
+
+}
 
 }
 

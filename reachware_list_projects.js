@@ -13,7 +13,25 @@ var form = serverWidget.createForm({ title: ' ' });
 
 form.hideNavBar = true;
 var empOptions = '<option value="">Select</option>';
+var dpOptions = '<option value="">Select</option>';
+var rwOptions ='<option value="">Select</option>';
+var rwSearch=search.create({
+    type:'customlist2261',
+    columns:['internalid','name']
+})
+rwSearch.run().each(function(result){
+    rwOptions +='<option value="'+result.getValue('internalid')+'">'+result.getValue('name')+'</option>';
+    return true;
+})
+var dpSearch = search.create({
+    type: 'customlist_rw_portal_directprojectlist',
+    columns: ['internalid','name']
+});
 
+dpSearch.run().each(function(result){
+    dpOptions += '<option value="'+result.getValue('internalid')+'">'+result.getValue('name')+'</option>';
+    return true;
+});
 var empSearch = search.create({
     type: 'employee',
     filters: [
@@ -44,6 +62,7 @@ html.defaultValue = `
 
 body{
 margin:0 !important;
+overflow-y:hidden !important;
 }
 
 #div__body{
@@ -165,32 +184,32 @@ ${empOptions}
 <label>ERP</label>
 <select name="erp">
 <option value="1">Netsuite</option>
-<option value="2">SAP</option>
-<option value="3">Oracle</option>
+<option value="2">Odoo</option>
+<option value="3">Microsoft dynamics 365</option>
+<option value="4">SAP</option>
 </select>
 
 <label>Direct Project</label>
 <select name="directproject">
-<option value="">Select</option>
-<option value="1">Yes</option>
-<option value="2">No</option>
+${dpOptions}
 </select>
 
 <label>Project Type</label>
 <select name="projecttype">
 <option value="">Select</option>
-<option value="1">Internal</option>
-<option value="2">Implementation</option>
+<option value="1">Implementation</option>
+<option value="2">Support</option>
 
 </select>
 
 <label>Status</label>
 <select name="status">
 <option value="">Select</option>
-<option value="1">New</option>
-<option value="2">Planning</option>
-<option value="3">In Progress</option>
-<option value="4">Completed</option>
+<option value="1">To Do</option>
+<option value="2">In Progress</option>
+<option value="3">UAT</option>
+<option value="4">Code Review</option>
+<option value="5">Done</option>
 </select>
 
 </div>
@@ -210,10 +229,7 @@ ${empOptions}
 <tr>
 <td>
 <select name="rwproduct">
-<option value="">Select</option>
-<option value="1">Reachware</option>
-<option value="2">CRM</option>
-<option value="3">Analytics</option>
+${rwOptions}
 </select>
 </td>
 <td><input type="text" name="comments">
@@ -335,7 +351,7 @@ value:new Date(golivedate)
 });
 }
 rec.setValue({
-fieldId:'custrecord_rw_portal_directproject',
+fieldId:'customlist_rw_portal_directproject',
 value:directproject
 });
 rec.setValue({
@@ -345,7 +361,7 @@ value:projecttype
 var parentId = rec.save();
 /* PRODUCT DETAILS */
 rec1.setValue({
-fieldId:'customrecord_rw_portal_access',
+fieldId:'custrecord1513',
 value:parentId
 });
 rec1.setValue({

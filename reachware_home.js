@@ -188,7 +188,7 @@ Reachware Project Management Portal
 
 <div class="content">
 
-<iframe id="mainFrame" style="width:100%;height:500px;border:none;display:none;"></iframe>
+<iframe id="mainFrame" style="width:100%;height:500px;border:none;display:none;margin-top:-50px;"></iframe>
 
 <div id="homeContent">
 

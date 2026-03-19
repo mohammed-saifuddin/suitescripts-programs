@@ -3,8 +3,8 @@
  * @NScriptType Suitelet
  */
 
-define(['N/ui/serverWidget','N/url','N/search','N/redirect','N/email','N/runtime','N/record'], 
-(serverWidget,url,search,redirect,email,runtime,record) => {
+define(['N/ui/serverWidget','N/url','N/search','N/redirect','N/email','N/runtime','N/record','N/crypto'], 
+(serverWidget,url,search,redirect,email,runtime,record,crypto) => {
 
 const onRequest = (context) => {
 
@@ -20,6 +20,8 @@ const onRequest = (context) => {
             deploymentId: 'customdeploy2',
             returnExternalUrl: true
         });
+
+
 
         const htmlField = form.addField({
             id: 'custpage_login_html',
@@ -191,7 +193,20 @@ return true;
 
         var emailValue = context.request.parameters.email || '';
         var password = context.request.parameters.password || '';
+         function hashPassword(password){
 
+    var hashObj = crypto.createHash({
+        algorithm: crypto.HashAlg.SHA256
+    });
+
+    hashObj.update({
+        input: password
+    });
+
+    return hashObj.digest({
+        outputEncoding: crypto.Encoding.HEX
+    });
+}
         emailValue = emailValue.trim();
         password = password.trim();
         
@@ -209,7 +224,7 @@ return;
             ],
             columns:[
                 'internalid',
-                'custentity_rw_dms_portalpassword'
+                'custentity_rw_dms_portal_password'
             ]
         });
 
@@ -226,7 +241,7 @@ return;
         if(result.length > 0){
 
             var storedPassword = result[0].getValue({
-                name: 'custentity_rw_dms_portalpassword'
+                name: 'custentity_rw_dms_portal_password'
             });
 
             var empId = result[0].getValue({
@@ -236,9 +251,11 @@ return;
             log.debug("Email from login", emailValue);
 
             log.debug("Employee ID from search", empId);
-            log.debug("Stored Password", storedPassword);
-            log.debug("Entered Password", password);
-
+            log.debug("Hashed Input", hashPass);
+log.debug("Stored Password", storedPassword);
+           var hashPass=hashPassword(password)
+             log.debug("Hashed Input", hashPass);
+log.debug("Stored Password", storedPassword);
             // FIRST LOGIN → RESET PASSWORD PAGE
             if(!storedPassword){
 
@@ -264,7 +281,7 @@ log.debug("Reset URL", resetUrl);
             }
 
             // NORMAL LOGIN
-            else if(password === storedPassword){
+            else if(hashPass === storedPassword){
 
                 var homeUrl = url.resolveScript({
                     scriptId:'customscript2874',

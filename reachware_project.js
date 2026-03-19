@@ -3,11 +3,96 @@
  * @NScriptType Suitelet
  */
 
-define(['N/ui/serverWidget','N/url'], (serverWidget,url) => {
+define(['N/ui/serverWidget','N/url','N/search','N/record'], (serverWidget,url,search,record) => {
 
 const onRequest = (context) => {
 
 var form = serverWidget.createForm({ title:' ' });
+
+var projectSearch = search.create({
+    type: 'customrecord_rw_portal_access2',
+     filters: [
+        ['custrecord1513','noneof','@NONE@'] 
+    ],
+    columns: [
+        'custrecord_rw_portal_rwproduct', 
+        'custrecord_rw_portal_additionalcomments',
+        'custrecord1513'
+
+        
+    
+    ]
+});
+
+
+var tableRows = '';
+var projectCounts = {};
+projectSearch.run().each(function(result){
+
+    var parentId = result.getValue('custrecord1513');
+
+    if(parentId){
+        if(!projectCounts[parentId]){
+            projectCounts[parentId] = 0;
+        }
+        projectCounts[parentId]++;
+    }
+
+    return true;
+});
+projectSearch.run().each(function(result){
+
+   var parentId = result.getValue('custrecord1513');
+
+var customer = '';
+var projectId = '';
+var status = '';
+var total=0;
+if(parentId){
+
+    var parentData = record.load({
+    type: 'customrecord_rw_portal_access',
+    id: parentId
+});
+
+customer = parentData.getValue('custrecord_rw_portal_customername') || '';
+projectId = parentData.id;
+status = parentData.getText('custrecord_rw_portal_status') || '';
+total = projectCounts[parentId] || 0;
+    
+}
+
+ 
+    
+    var rwProduct = result.getText('custrecord_rw_portal_rwproduct');
+
+    var comments = result.getValue('custrecord_rw_portal_additionalcomments');
+
+    tableRows += `
+    <tr>
+    
+    <td  style="border:1px solid black;">${projectId}</td>
+        <td style="border:1px solid black;">${customer}</td>
+        
+        <td style="border:1px solid black;">${rwProduct}</td>
+        <td style="border:1px solid black;">${status}</td>
+        <td style="border:1px solid black;">${total}</td>
+        <td style="border:1px solid black;">${total}</td>
+        <td style="border:1px solid black;">${total}</td>
+    </tr>
+    `;
+log.debug("Customer", customer);
+log.debug("PM", projectId);
+log.debug("Status", status);
+log.debug(rwProduct)
+log.debug("Parent Data FULL", JSON.stringify(parentData));
+log.debug("parent id is ",parentId);
+    return true;
+});
+    
+
+
+
 
 var htmlField = form.addField({
     id:'custpage_html',
@@ -29,6 +114,7 @@ margin:0 !important;
 padding:0 !important;
 width:100%;
 height:100%;
+overflow-y:hidden !important;
 }
 
 /* remove netsuite borders */
@@ -101,7 +187,7 @@ padding:0;
 
 <div class="content">
 
-<iframe id="mainFrame" style="width:100%;height:500px;border:none;display:none;"></iframe>
+<iframe id="mainFrame" style="width:100%;height:500px;border:none;display:none;margin-top:-10px;"></iframe>
 
 <div id="homeContent">
 
@@ -119,56 +205,9 @@ padding:0;
 <th style="border:1px solid #ccc;">Closed</th>
 </tr>
 
-<tr>
-<td style="border:1px solid #ccc;">RWP0001</td>
-<td style="border:1px solid #ccc;">SETRA</td>
-<td style="border:1px solid #ccc;">PC ON AP</td>
-<td style="border:1px solid #ccc;">COMPLETED</td>
-<td style="border:1px solid #ccc;">5</td>
-<td style="border:1px solid #ccc;">0</td>
-<td style="border:1px solid #ccc;">5</td>
-</tr>
 
-<tr>
-<td style="border:1px solid #ccc;">RWP0002</td>
-<td style="border:1px solid #ccc;">TEDCO</td>
-<td style="border:1px solid #ccc;">PC ON AP</td>
-<td style="border:1px solid #ccc;">IN PROGRESS</td>
-<td style="border:1px solid #ccc;">2</td>
-<td style="border:1px solid #ccc;">1</td>
-<td style="border:1px solid #ccc;">1</td>
-</tr>
 
-<tr>
-<td style="border:1px solid #ccc;">RWP0003</td>
-<td style="border:1px solid #ccc;">TEDCO</td>
-<td style="border:1px solid #ccc;">PC ON AR</td>
-<td style="border:1px solid #ccc;">IN PROGRESS</td>
-<td style="border:1px solid #ccc;">2</td>
-<td style="border:1px solid #ccc;">1</td>
-<td style="border:1px solid #ccc;">1</td>
-</tr>
-
-<tr>
-<td style="border:1px solid #ccc;">RWP0004</td>
-<td style="border:1px solid #ccc;">TEDCO</td>
-<td style="border:1px solid #ccc;">ADV BUDGETING</td>
-<td style="border:1px solid #ccc;">IN PROGRESS</td>
-<td style="border:1px solid #ccc;">2</td>
-<td style="border:1px solid #ccc;">1</td>
-<td style="border:1px solid #ccc;">1</td>
-</tr>
-
-<tr>
-<td style="border:1px solid #ccc;">RWP0005</td>
-<td style="border:1px solid #ccc;">TEDCO</td>
-<td style="border:1px solid #ccc;">MATERIAL REQUEST</td>
-<td style="border:1px solid #ccc;">IN PROGRESS</td>
-<td style="border:1px solid #ccc;">2</td>
-<td style="border:1px solid #ccc;">1</td>
-<td style="border:1px solid #ccc;">1</td>
-</tr>
-
+${tableRows}
 </table>
 
 </div>
